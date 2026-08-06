@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur Rentabilité VTC | IZEO CAB</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --navy: #0a1628;
+            --navy-light: #132038;
+            --navy-mid: #1e3355;
+            --gold: #c8963e;
+            --gold-light: #e8c56d;
+            --white: #ffffff;
+            --gray-50: #f8f9fa;
+            --gray-100: #f0f2f5;
+            --gray-200: #e2e6ea;
+            --gray-300: #cbd1d8;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-700: #374151;
+            --gray-900: #111827;
+            --green: #059669;
+            --red: #dc2626;
+            --amber: #d97706;
+            --blue-accent: #2563eb;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+            --radius: 10px;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        .header {
+            background: var(--navy);
+            color: var(--white);
+            padding: 16px 24px;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .header .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .header .logo span { color: var(--gold); }
+        .header .slogan {
+            font-size: 0.8rem;
+            color: var(--gray-400);
+        }
+
+        /* NAV TABS */
+        .nav-tabs {
+            display: flex;
+            gap: 4px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 8px;
+            padding: 3px;
+        }
+        .nav-tab {
+            padding: 8px 18px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: transparent;
+            color: var(--gray-300);
+            transition: all 0.25s;
+        }
+        .nav-tab.active {
+            background: var(--white);
+            color: var(--navy);
+        }
+        .nav-tab:hover:not(.active) {
+            color: var(--white);
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 28px 20px 60px;
+        }
+
+        /* PAGE */
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .hero h1 {
+            font-size: 2rem;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+        .hero .subtitle {
+            color: var(--gray-500);
+            font-size: 0.95rem;
+        }
+
+        /* CARD */
+        .card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 18px;
+            box-shadow: var(--shadow-sm);
+        }
+        .card h2 {
+            font-size: 1.1rem;
+            color: var(--navy);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card h2 .icon { font-size: 1.3rem; }
+        .card h3 {
+            font-size: 0.95rem;
+            color: var(--navy-mid);
+            margin-bottom: 10px;
+        }
+
+        /* FORM */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group.full { grid-column: 1 / -1; }
+        .form-group label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 4px;
+        }
+        .form-group .hint {
+            font-size: 0.7rem;
+            color: var(--gray-400);
+            margin-top: 2px;
+        }
+        input, select {
+            border: 1.5px solid var(--gray-300);
+            border-radius: 7px;
+            padding: 10px 14px;
+            font-size: 0.95rem;
+            color: var(--gray-900);
+            background: var(--white);
+            transition: all 0.2s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--navy-mid);
+            box-shadow: 0 0 0 3px rgba(30,51,85,0.1);
+        }
+        input::placeholder { color: var(--gray-400); }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            padding: 13px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s;
+            width: 100%;
+        }
+        .btn:hover {
+            background: var(--navy-light);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        .btn:active { transform: translateY(0); }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--navy);
+        }
+        .btn-gold:hover {
+            background: linear-gradient(135deg, var(--gold-light), #f0d68a);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--navy);
+            color: var(--navy);
+        }
+        .btn-outline:hover {
+            background: var(--navy);
+            color: var(--white);
+        }
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            width: auto;
+        }
+
+        /* RESULTS */
+        #results1, #results2 { display: none; }
+        .result-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 22px;
+            margin-bottom: 14px;
+            box-shadow: var(--shadow-sm);
+        }
+        .result-card h3 {
+            color: var(--navy);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+            gap: 10px;
+        }
+        .metric {
+            background: var(--gray-50);
+            border-radius: 8px;
+            padding: 14px;
+            text-align: center;
+            border: 1px solid var(--gray-200);
+        }
+        .metric .value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+        .metric .value.positive { color: var(--green); }
+        .metric .value.negative { color: var(--red); }
+        .metric .value.warning { color: var(--amber); }
+        .metric .label {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-top: 2px;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .detail-row:last-child { border-bottom: none; }
+        .detail-row .amount { font-weight: 600; }
+        .amount.positive { color: var(--green); }
+        .amount.negative { color: var(--red); }
+        .separator {
+            border-top: 2px solid var(--gold);
+            margin: 8px 0;
+            padding-top: 12px;
+        }
+
+        /* ADVICE */
+        .advice-box {
+            background: #fef9f0;
+            border-left: 3px solid var(--gold);
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.9rem;
+        }
+        .advice-box .affiliate {
+            display: inline-block;
+            margin-top: 6px;
+            font-size: 0.8rem;
+            color: var(--navy);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* FRÉMIUM TABLE */
+        .pricing-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 12px;
+        }
+        .pricing-col {
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+        }
+        .pricing-col.premium {
+            border-color: var(--gold);
+            background: #fefdf8;
+            position: relative;
+        }
+        .pricing-col .badge {
+            position: absolute;
+            top: -12px;
+            right: 16px;
+            background: var(--gold);
+            color: var(--white);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .pricing-col h4 { color: var(--navy); margin-bottom: 8px; }
+        .pricing-col .price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+        .pricing-col .price small { font-size: 0.8rem; color: var(--gray-500); font-weight:400; }
+        .pricing-col ul {
+            list-style: none;
+            text-align: left;
+            font-size: 0.85rem;
+            margin-bottom: 14px;
+        }
+        .pricing-col ul li {
+            padding: 5px 0;
+            color: var(--gray-700);
+        }
+        .pricing-col ul li::before {
+            content: "✓ ";
+            color: var(--green);
+            font-weight: bold;
+        }
+        .pricing-col ul li.missing::before {
+            content: "✗ ";
+            color: var(--red);
+        }
+        .pricing-col ul li.missing { color: var(--gray-400); }
+
+        /* IK SPECIFIC */
+        .ik-result-highlight {
+            background: var(--navy);
+            color: var(--white);
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .ik-result-highlight .big {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        /* LOCKED OVERLAY */
+        .locked {
+            position: relative;
+        }
+        .locked::after {
+            content: "🔒 Premium — Débloquer pour 19,99€";
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--navy);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            backdrop-filter: blur(2px);
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            margin-top: 32px;
+            padding: 16px;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            border-top: 1px solid var(--gray-200);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 640px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .pricing-table { grid-template-columns: 1fr; }
+            .header-inner { flex-direction: column; text-align: center; }
+            .hero h1 { font-size: 1.5rem; }
+            .metric-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="header-inner">
+        <div>
+            <div class="logo">IZEO <span>CAB</span></div>
+            <div class="slogan">Calculateur de rentabilité VTC</div>
+        </div>
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="switchPage('page1', this)">📊 Rentabilité VTC</button>
+            <button class="nav-tab" onclick="switchPage('page2', this)">🚗 Indemnités KM</button>
+        </nav>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- ==================== PAGE 1 : RENTABILITÉ VTC ==================== -->
+    <div id="page1" class="page active">
+
+        <div class="hero">
+            <h1>Calcule ta vraie rentabilité VTC</h1>
+            <p class="subtitle">Saisis tes chiffres réels et obtiens ton taux horaire net, ton seuil de rentabilité et des conseils actionnables.</p>
+        </div>
+
+        <!-- Statut + TVA -->
+        <div class="card">
+            <h2><span class="icon">⚙️</span> Régime &amp; Fiscalité</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Type de rémunération</label>
+                    <select id="regime" onchange="updateRegimeHint()">
+                        <option value="micro">Auto-entrepreneur (micro-entreprise)</option>
+                        <option value="salarie">Salarié (portage salarial)</option>
+                        <option value="gns">Gérant Non Salarié (EURL / SASU)</option>
+                        <option value="ik">Indemnités Kilométriques (IK)</option>
+                    </select>
+                    <span class="hint" id="regimeHint">Cotisations ~26,6% du CA. Abattement forfaitaire pour frais.</span>
+                </div>
+                <div class="form-group">
+                    <label>Régime TVA</label>
+                    <select id="tva" onchange="updateTvaHint()">
+                        <option value="franchise">Franchise en base (CA &lt; 37 500€/an)</option>
+                        <option value="10">Assujetti — Transport personnes (10%)</option>
+                        <option value="20">Assujetti — Mise à disposition (20%)</option>
+                    </select>
+                    <span class="hint" id="tvaHint">Pas de TVA facturée. Mention « TVA non applicable, art. 293 B du CGI ».</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Revenus -->
+        <div class="card">
+            <h2><span class="icon">💰</span> Revenus</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Chiffre d'affaires mensuel HT (€)</label>
+                    <input type="number" id="ca" value="4500" min="0" step="100">
+                </div>
+                <div class="form-group">
+                    <label>Courses / mois</label>
+                    <input type="number" id="courses" value="120" min="1" step="1">
+                </div>
+                <div class="form-group full">
+                    <label>Plateformes utilisées</label>
+                    <select id="plateformes">
+                        <option value="uber">Uber uniquement</option>
+                        <option value="uber_bolt">Uber + Bolt</option>
+                        <option value="uber_heetch">Uber + Heetch</option>
+                        <option value="all">Uber + Bolt + Heetch</option>
+                        <option value="propre" selected>Propre clientèle (direct)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charges variables -->
+        <div class="card">
+            <h2><span class="icon">⛽</span> Charges Variables</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Carburant / mois (€)</label>
+                    <input type="number" id="carburant" value="500" min="0" step="10">
+                </div>
+                <div class="form-group">
+                    <label>Entretien / mois (€)</label>
+                    <input type="number" id="entretien" value="150" min="0" step="10">
+                </div>
+                <div class="form-group">
+                    <label>Péages / parking / mois (€)</label>
+                    <input type="number" id="divers" value="80" min="0" step="10">
+                </div>
+                <div class="form-group">
+                    <label>Commission plateforme (%)</label>
+                    <input type="number" id="commission" value="25" min="0" max="50" step="1">
+                </div>
+            </div>
+        </div>
+
+        <!-- Charges fixes -->
+        <div class="card">
+            <h2><span class="icon">🏢</span> Charges Fixes Mensuelles</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Location véhicule (€)</label>
+                    <input type="number" id="location" value="375" min="0" step="10">
+                </div>
+                <div class="form-group">
+                    <label>Assurance (€)</label>
+                    <input type="number" id="assurance" value="120" min="0" step="5">
+                </div>
+                <div class="form-group">
+                    <label>Carte VTC / pro (€)</label>
+                    <input type="number" id="carte_vtc" value="50" min="0" step="5">
+                </div>
+                <div class="form-group">
+                    <label>Téléphone / apps (€)</label>
+                    <input type="number" id="telephone" value="40" min="0" step="5">
+                </div>
+            </div>
+        </div>
+
+        <!-- Amortissement (Premium) -->
+        <div class="card locked" id="amortCard" onclick="alert('🔒 Fonctionnalité Premium — Débloque l\'accès complet pour 19,99€.\n\nL\'amortissement véhicule te permet de déduire la valeur de ta voiture sur plusieurs années et d\'optimiser ton résultat fiscal.')">
+            <h2><span class="icon">🚙</span> Amortissement Véhicule (Premium)</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Prix d'achat du véhicule (€)</label>
+                    <input type="number" value="25000" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Durée d'amortissement (ans)</label>
+                    <input type="number" value="5" disabled>
+                </div>
+            </div>
+        </div>
+
+        <!-- Temps de travail -->
+        <div class="card">
+            <h2><span class="icon">⏱</span> Temps de Travail</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Jours travaillés / mois</label>
+                    <input type="number" id="jours" value="22" min="1" max="31" step="1">
+                </div>
+                <div class="form-group">
+                    <label>Heures / jour (en ligne)</label>
+                    <input type="number" id="heures_jour" value="10" min="1" max="20" step="0.5">
+                </div>
+            </div>
+        </div>
+
+        <!-- Tableau Freemium -->
+        <div class="card" style="background:#fafbfc;">
+            <h2><span class="icon">⭐</span> Gratuit vs Premium</h2>
+            <div class="pricing-table">
+                <div class="pricing-col">
+                    <h4>🆓 Gratuit</h4>
+                    <div class="price">0 €</div>
+                    <ul>
+                        <li>Calculs complets (4 régimes)</li>
+                        <li>TVA configurable</li>
+                        <li>Conseils personnalisés</li>
+                        <li class="missing">Export PDF</li>
+                        <li class="missing">Amortissement véhicule</li>
+                        <li class="missing">Comparaison scénarios</li>
+                        <li class="missing">Sauvegarde des données</li>
+                    </ul>
+                </div>
+                <div class="pricing-col premium">
+                    <span class="badge">⭐ PRO</span>
+                    <h4>💎 Premium</h4>
+                    <div class="price">19,99 € <small>paiement unique</small></div>
+                    <ul>
+                        <li>Tout le contenu gratuit</li>
+                        <li>Export PDF du rapport</li>
+                        <li>Amortissement véhicule</li>
+                        <li>Comparaison scénarios</li>
+                        <li>Sauvegarde des données</li>
+                        <li>Support prioritaire</li>
+                    </ul>
+                    <button class="btn btn-gold btn-sm" onclick="alert('🛒 Paiement sécurisé Stripe à venir.\n\nPrix : 19,99€ — accès à vie.\n\nContacte-moi pour être informé du lancement !')">Débloquer — 19,99€</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div class="card">
+            <h2><span class="icon">📧</span> Reçois ton rapport</h2>
+            <div style="text-align:center;">
+                <input type="email" id="email" placeholder="ton@email.com" style="max-width:320px;width:100%;">
+                <p style="font-size:0.75rem;color:var(--gray-500);margin-top:6px;">Jamais partagé. Reçois des conseils VTC par email.</p>
+            </div>
+        </div>
+
+        <button class="btn btn-gold" onclick="calculer()">📊 Calculer ma rentabilité</button>
+        <div id="results1"></div>
+    </div>
+
+    <!-- ==================== PAGE 2 : CALCULATEUR IK ==================== -->
+    <div id="page2" class="page">
+        <div class="hero">
+            <h1>Calculateur Indemnités Kilométriques</h1>
+            <p class="subtitle">Simule tes frais réels et compare avec le barème fiscal des indemnités kilométriques.</p>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">🚗</span> Données du véhicule</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Puissance fiscale (CV)</label>
+                    <select id="cv">
+                        <option value="3">3 CV et moins</option>
+                        <option value="4">4 CV</option>
+                        <option value="5" selected>5 CV</option>
+                        <option value="6">6 CV</option>
+                        <option value="7">7 CV et plus</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Kilomètres parcourus / an (pro)</label>
+                    <input type="number" id="km_an" value="40000" min="0" step="500">
+                </div>
+                <div class="form-group">
+                    <label>Prix carburant (€/L)</label>
+                    <input type="number" id="prix_carburant" value="1.80" min="0" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label>Consommation (L/100km)</label>
+                    <input type="number" id="conso" value="6.5" min="0" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label>Entretien / an (€)</label>
+                    <input type="number" id="entretien_an" value="1800" min="0" step="50">
+                </div>
+                <div class="form-group">
+                    <label>Assurance / an (€)</label>
+                    <input type="number" id="assurance_an" value="1440" min="0" step="50">
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-gold" onclick="calculerIK()">📊 Calculer mes indemnités KM</button>
+        <div id="results2"></div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        IZEO CAB — 2 Rue Antoine Coysevox, 69001 Lyon &bull; SIREN 837 936 509 &bull; 
+        <a href="https://izeocab.com" style="color:var(--navy);">izeocab.com</a>
+    </div>
+</div>
+
+<script>
+// ============ PAGE SWITCHING ============
+function switchPage(pageId, btn) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+    btn.classList.add('active');
+}
+
+// ============ REGIME HINTS ============
+function updateRegimeHint() {
+    const v = document.getElementById('regime').value;
+    const hints = {
+        micro: 'Cotisations ~26,6% du CA. Abattement forfaitaire pour frais professionnels.',
+        salarie: 'Salaire net après charges patronales (~42%) et salariales (~22%). Simulation indicative.',
+        gns: 'Rémunération en dividendes + salaire. Cotisations ~15% sur la marge nette. Optimisation fiscale possible.',
+        ik: 'Remboursement au barème kilométrique. Pas de cotisations sociales sur les IK. Plafonné au barème fiscal.'
+    };
+    document.getElementById('regimeHint').textContent = hints[v] || '';
+}
+function updateTvaHint() {
+    const v = document.getElementById('tva').value;
+    const hints = {
+        franchise: 'Pas de TVA facturée ni déduite. Mention « TVA non applicable, art. 293 B du CGI » obligatoire.',
+        '10': 'TVA à 10% sur les courses de transport de personnes. TVA déductible sur les charges professionnelles.',
+        '20': 'TVA à 20% sur les prestations annexes (mise à disposition, forfait horaire, VIP). TVA déductible.'
+    };
+    document.getElementById('tvaHint').textContent = hints[v] || '';
+}
+
+// ============ PAGE 1 : CALCUL RENTABILITÉ ============
+function calculer() {
+    const ca = parseFloat(document.getElementById('ca').value) || 0;
+    const courses = parseInt(document.getElementById('courses').value) || 1;
+    const carburant = parseFloat(document.getElementById('carburant').value) || 0;
+    const entretien = parseFloat(document.getElementById('entretien').value) || 0;
+    const divers = parseFloat(document.getElementById('divers').value) || 0;
+    const commissionPct = parseFloat(document.getElementById('commission').value) || 0;
+    const location = parseFloat(document.getElementById('location').value) || 0;
+    const assurance = parseFloat(document.getElementById('assurance').value) || 0;
+    const carte_vtc = parseFloat(document.getElementById('carte_vtc').value) || 0;
+    const telephone = parseFloat(document.getElementById('telephone').value) || 0;
+    const jours = parseInt(document.getElementById('jours').value) || 22;
+    const heuresJour = parseFloat(document.getElementById('heures_jour').value) || 8;
+    const regime = document.getElementById('regime').value;
+    const tvaMode = document.getElementById('tva').value;
+
+    // TVA
+    let tvaCollectee = 0;
+    let tvaDeductible = 0;
+    const tvaTaux = tvaMode === 'franchise' ? 0 : (tvaMode === '10' ? 0.10 : 0.20);
+    if (tvaTaux > 0) {
+        tvaCollectee = ca * tvaTaux;
+        tvaDeductible = (carburant + entretien + divers + location + assurance + telephone) * 0.20;
+    }
+
+    // Calculs de base
+    const commissionAmt = ca * (commissionPct / 100);
+    const caNet = ca - commissionAmt;
+    const chargesVariables = carburant + entretien + divers;
+    const chargesFixes = location + assurance + carte_vtc + telephone;
+    const totalCharges = chargesVariables + chargesFixes;
+    const margeBrute = caNet - totalCharges;
+
+    // Fiscalité selon régime
+    let cotisations = 0;
+    if (regime === 'micro') {
+        cotisations = ca * 0.266;
+    } else if (regime === 'salarie') {
+        cotisations = ca * 0.42;
+    } else if (regime === 'gns') {
+        cotisations = margeBrute > 0 ? margeBrute * 0.15 : 0;
+    } else if (regime === 'ik') {
+        cotisations = 0;
+    }
+
+    const revenuNetAvantImpots = margeBrute - cotisations;
+    const impots = revenuNetAvantImpots > 0 ? revenuNetAvantImpots * 0.1 : 0;
+    const revenuNet = revenuNetAvantImpots - impots;
+
+    // TVA à reverser
+    const tvaAReverser = tvaCollectee - tvaDeductible;
+    const revenuNetAvecTVA = revenuNet - (tvaAReverser > 0 ? tvaAReverser : 0);
+
+    // Horaires
+    const heuresMois = jours * heuresJour;
+    const tauxHoraireNet = heuresMois > 0 ? revenuNet / heuresMois : 0;
+    const tauxHoraireBrut = heuresMois > 0 ? ca / heuresMois : 0;
+    const panierMoyen = courses > 0 ? ca / courses : 0;
+    const seuilCourses = panierMoyen > 0 ? Math.ceil(totalCharges / panierMoyen) : 0;
+    const ratioCharges = ca > 0 ? (totalCharges / ca) * 100 : 0;
+    const isRentable = revenuNet > 0;
+    const colorClass = isRentable ? 'positive' : 'negative';
+
+    // Conseils personnalisés (améliorés, sourcés de la réalité VTC)
+    let advice = '';
+    if (!isRentable) {
+        advice = "⚠️ <strong>Tu roules à perte.</strong> Priorité n°1 : réduis tes charges fixes. La location à 375€/mois + assurance, c'est ~500€ avant même d'avoir roulé 1 km. Envisage un véhicule moins cher ou l'achat d'un Toyota Prius d'occasion (15 000-18 000€). Un VTC qui roule à perte est un VTC qui ne le sait pas encore.";
+        if (commissionPct >= 25) {
+            advice += "<br><br>💡 Avec " + commissionPct + "% de commission, tu donnes " + Math.round(commissionAmt) + "€/mois à ta plateforme. Développe ta clientèle directe (cartes de visite, QR code dans la voiture) pour réduire cette dépendance.";
+        }
+    } else if (tauxHoraireNet < 9) {
+        advice = "⚠️ <strong>" + Math.round(tauxHoraireNet) + "€/h net</strong>, c'est en dessous du SMIC horaire net (~9,40€). La bonne nouvelle : tu n'es pas en négatif. Mais chaque heure passée au volant te rapporte moins qu'un job alimentaire. Solution : réduire les heures creuses (rentrer chez toi plutôt que d'attendre), cibler les créneaux à forte demande (aéroports tôt le matin, gares en heure de pointe).";
+    } else if (tauxHoraireNet < 14) {
+        advice = "👍 <strong>" + Math.round(tauxHoraireNet) + "€/h net</strong>, c'est dans la moyenne basse des VTC à Lyon. Tu peux viser 16-18€/h en optimisant : évite les courses courtes (UberPool, < 5€), priorise les courses aéroport/gare le matin, et fidélise 5 clients directs qui te contactent en dehors des applis.";
+    } else {
+        advice = "✅ <strong>" + Math.round(tauxHoraireNet) + "€/h net</strong>, très bonne rentabilité pour un VTC indépendant. Continue d'optimiser : développe ta clientèle directe pour viser 20€+/h, négocie ton assurance (comparateur en ligne), et pense à long terme (achat du véhicule plutôt que location).";
+    }
+
+    // Ajout liens affiliation
+    advice += "<br><br><span style='font-size:0.8rem;color:var(--gray-500);'>🔗 <strong>Partenaires recommandés :</strong></span>";
+    advice += "<br><span class='affiliate'>→ Comparer les assurances VTC (Assurup, Allianz Pro)</span>";
+    advice += "<br><span class='affiliate'>→ Logiciel de gestion VTC (Free2Move, NAV VTC)</span>";
+    advice += "<br><span class='affiliate'>→ Comptable en ligne spécialisé VTC (Dougs, Tiime)</span>";
+
+    const resultDiv = document.getElementById('results1');
+    resultDiv.style.display = 'block';
+
+    resultDiv.innerHTML = `
+        <div class="result-card">
+            <h3>📊 Résultat Net Mensuel</h3>
+            <div class="metric-grid">
+                <div class="metric">
+                    <div class="value ${colorClass}">${Math.round(revenuNet).toLocaleString('fr-FR')} €</div>
+                    <div class="label">Revenu net / mois</div>
+                </div>
+                <div class="metric">
+                    <div class="value ${colorClass}">${Math.round(tauxHoraireNet)} €</div>
+                    <div class="label">Taux horaire NET</div>
+                </div>
+                <div class="metric">
+                    <div class="value">${Math.round(ca).toLocaleString('fr-FR')} €</div>
+                    <div class="label">CA mensuel</div>
+                </div>
+                ${tvaMode !== 'franchise' ? `
+                <div class="metric">
+                    <div class="value ${tvaAReverser > 0 ? 'negative' : 'positive'}">${Math.round(tvaAReverser).toLocaleString('fr-FR')} €</div>
+                    <div class="label">TVA à reverser</div>
+                </div>` : ''}
+            </div>
+        </div>
+
+        <div class="result-card">
+            <h3>📈 Détail des Charges</h3>
+            <div class="detail-row"><span>Chiffre d'affaires brut</span><span class="amount">${Math.round(ca).toLocaleString('fr-FR')} €</span></div>
+            <div class="detail-row"><span>Commission plateforme (${commissionPct}%)</span><span class="amount negative">-${Math.round(commissionAmt).toLocaleString('fr-FR')} €</span></div>
+            <div class="detail-row"><span>CA net</span><span class="amount">${Math.round(caNet).toLocaleString('fr-FR')} €</span></div>
+            <div class="detail-row separator"><span>Charges variables</span><span class="amount negative">-${Math.round(chargesVariables).toLocaleString('fr-FR')} €</span></div>
+            <div class="detail-row"><span>Charges fixes</span><span class="amount negative">-${Math.round(chargesFixes).toLocaleString('fr-FR')} €</span></div>
+            <div class="detail-row"><span>Total charges</span><span class="amount negative">-${Math.round(totalCharges).toLocaleString('fr-FR')} €</span></div>
+            <div class="detail-row separator"><span>Cotisations sociales (${regime})</span><span class="amount negative">-${Math.round(cotisations).toLocaleString('fr-FR')} €</span></div>
+            <div class="detail-row"><span>Impôt sur le revenu (estimé ~10%)</span><span class="amount negative">-${Math.round(impots).toLocaleString('fr-FR')} €</span></div>
+            ${tvaMode !== 'franchise' ? `<div class="detail-row"><span>TVA à reverser (collectée ${tvaTaux*100}% − déductible)</span><span class="amount ${tvaAReverser > 0 ? 'negative' : 'positive'}">${tvaAReverser > 0 ? '-' : ''}${Math.round(tvaAReverser).toLocaleString('fr-FR')} €</span></div>` : ''}
+            <div class="detail-row" style="border-top:2px solid var(--gold);margin-top:6px;padding-top:12px;font-weight:700;">
+                <span>💵 Revenu net mensuel</span>
+                <span class="amount ${colorClass}" style="font-size:1.1rem;">${Math.round(revenuNet).toLocaleString('fr-FR')} €</span>
+            </div>
+        </div>
+
+        <div class="result-card">
+            <h3>🎯 Indicateurs Clés</h3>
+            <div class="metric-grid">
+                <div class="metric">
+                    <div class="value">${Math.round(panierMoyen)} €</div>
+                    <div class="label">Panier moyen</div>
+                </div>
+                <div class="metric">
+                    <div class="value">${seuilCourses}</div>
+                    <div class="label">Courses/mois (seuil)</div>
+                </div>
+                <div class="metric">
+                    <div class="value">${Math.round(tauxHoraireBrut)} €</div>
+                    <div class="label">Taux horaire BRUT</div>
+                </div>
+                <div class="metric">
+                    <div class="value ${ratioCharges > 70 ? 'negative' : 'positive'}">${Math.round(ratioCharges)}%</div>
+                    <div class="label">Ratio charges/CA</div>
+                </div>
+                <div class="metric">
+                    <div class="value">${Math.round(heuresMois)}h</div>
+                    <div class="label">Heures travaillées</div>
+                </div>
+                <div class="metric">
+                    <div class="value">${Math.round(courses / jours)}</div>
+                    <div class="label">Courses / jour</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="result-card">
+            <h3>💡 Conseils Personnalisés</h3>
+            <div class="advice-box">${advice}</div>
+            <div style="margin-top:12px;font-size:0.82rem;color:var(--gray-500);">
+                Pour atteindre <strong>2 000€ net/mois</strong>, il te faut ~<strong>${Math.round(2000 / Math.max(tauxHoraireNet, 1))}h</strong> de travail par mois (${Math.round(2000 / Math.max(tauxHoraireNet, 1) / jours)}h/jour sur ${jours} jours).
+            </div>
+        </div>
+
+        <div class="result-card locked" onclick="alert('🔒 Export PDF — Disponible en version Premium (19,99€).\\n\\nPaiement unique, accès à vie.')">
+            <h3>📄 Export PDF (Premium)</h3>
+            <p style="font-size:0.85rem;color:var(--gray-500);">Génère un rapport PDF complet avec tous tes calculs et conseils.</p>
+            <button class="btn btn-outline btn-sm">📥 Télécharger le rapport — Premium</button>
+        </div>
+    `;
+
+    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ============ PAGE 2 : CALCULATEUR IK ============
+function calculerIK() {
+    const cv = parseInt(document.getElementById('cv').value);
+    const km = parseFloat(document.getElementById('km_an').value) || 0;
+    const prixCarburant = parseFloat(document.getElementById('prix_carburant').value) || 0;
+    const conso = parseFloat(document.getElementById('conso').value) || 0;
+    const entretienAn = parseFloat(document.getElementById('entretien_an').value) || 0;
+    const assuranceAn = parseFloat(document.getElementById('assurance_an').value) || 0;
+
+    // Barème IK 2025 (simplifié)
+    const bareme = {
+        3: { jusqua5000: 0.529, de5001a20000: 0.316, auDela: 0.370 },
+        4: { jusqua5000: 0.606, de5001a20000: 0.340, auDela: 0.407 },
+        5: { jusqua5000: 0.636, de5001a20000: 0.357, auDela: 0.427 },
+        6: { jusqua5000: 0.665, de5001a20000: 0.374, auDela: 0.447 },
+        7: { jusqua5000: 0.697, de5001a20000: 0.394, auDela: 0.470 }
+    };
+
+    const b = bareme[cv] || bareme[5];
+    let ik = 0;
+    if (km <= 5000) {
+        ik = km * b.jusqua5000;
+    } else if (km <= 20000) {
+        ik = 5000 * b.jusqua5000 + (km - 5000) * b.de5001a20000;
+    } else {
+        ik = 5000 * b.jusqua5000 + 15000 * b.de5001a20000 + (km - 20000) * b.auDela;
+    }
+
+    // Frais réels
+    const litres = km * (conso / 100);
+    const coutCarburant = litres * prixCarburant;
+    const fraisReels = coutCarburant + entretienAn + assuranceAn;
+
+    const meilleur = ik > fraisReels ? 'IK' : 'Frais réels';
+    const diff = Math.abs(ik - fraisReels);
+    const pctDiff = fraisReels > 0 ? ((diff / fraisReels) * 100) : 0;
+
+    const resultDiv = document.getElementById('results2');
+    resultDiv.style.display = 'block';
+
+    resultDiv.innerHTML = `
+        <div class="result-card">
+            <h3>📊 Comparaison IK vs Frais Réels</h3>
+            <div class="metric-grid">
+                <div class="metric">
+                    <div class="value">${Math.round(ik).toLocaleString('fr-FR')} €</div>
+                    <div class="label">Indemnités KM (barème)</div>
+                </div>
+                <div class="metric">
+                    <div class="value">${Math.round(fraisReels).toLocaleString('fr-FR')} €</div>
+                    <div class="label">Frais réels estimés</div>
+                </div>
+                <div class="metric">
+                    <div class="value ${meilleur === 'IK' ? 'positive' : ''}">${meilleur}</div>
+                    <div class="label">Option la + avantageuse</div>
+                </div>
+                <div class="metric">
+                    <div class="value">${Math.round(diff).toLocaleString('fr-FR')} €</div>
+                    <div class="label">Écart (${Math.round(pctDiff)}%)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="result-card">
+            <h3>📋 Détail du calcul</h3>
+            <div class="detail-row"><span>Kilomètres parcourus</span><span class="amount">${km.toLocaleString('fr-FR')} km</span></div>
+            <div class="detail-row"><span>Puissance fiscale</span><span class="amount">${cv} CV</span></div>
+            <div class="detail-row separator"><span>Carburant (${conso}L/100km × ${prixCarburant}€/L)</span><span class="amount negative">${Math.round(coutCarburant).toLocaleString('fr-FR')} €</span></div>
+            <div class="detail-row"><span>Entretien annuel</span><span class="amount negative">${Math.round(entretienAn).toLocaleString('fr-FR')} €</span></div>
+            <div class="detail-row"><span>Assurance annuelle</span><span class="amount negative">${Math.round(assuranceAn).toLocaleString('fr-FR')} €</span></div>
+            <div class="detail-row" style="border-top:2px solid var(--gold);margin-top:6px;padding-top:12px;font-weight:700;">
+                <span>💰 Indemnité KM conseillée</span>
+                <span class="amount positive" style="font-size:1.1rem;">${Math.round(Math.max(ik, fraisReels)).toLocaleString('fr-FR')} €</span>
+            </div>
+        </div>
+
+        <div class="result-card">
+            <h3>💡 Recommandation</h3>
+            <div class="advice-box">
+                ${meilleur === 'IK' 
+                    ? `<strong>Le barème kilométrique est plus avantageux</strong> pour toi (écart de ${Math.round(diff).toLocaleString('fr-FR')}€). C'est le cas de la majorité des VTC qui font beaucoup de kilomètres. Le barème IK couvre plus que le carburant : il intègre l'usure, la dépréciation, et les frais divers.`
+                    : `<strong>Les frais réels sont plus avantageux</strong> dans ton cas. Garde tous tes justificatifs (carburant, entretien, assurance) pour les déclarer aux impôts. Cette situation est rare chez les VTC : vérifie que tu n'as pas sous-estimé tes frais (pneus, lavage, parking, péages...).`
+                }
+            </div>
+        </div>
+    `;
+
+    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>
