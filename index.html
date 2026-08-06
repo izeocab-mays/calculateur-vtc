@@ -703,8 +703,8 @@
 
     <!-- BOUTON CONTACT FLOTTANT -->
     <div style="position:fixed;bottom:20px;right:20px;z-index:999;display:flex;flex-direction:column;gap:8px;">
-        <a href="https://wa.me/33600000000?text=Bonjour%20IZEO%20CAB,%20j%27ai%20une%20question%20sur%20le%20calculateur%20VTC" target="_blank" rel="noopener" title="Contact WhatsApp" style="background:#25D366;color:white;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;text-decoration:none;box-shadow:0 4px 12px rgba(37,211,102,.3);">💬</a>
-        <a href="https://t.me/izeocab" target="_blank" rel="noopener" title="Contact Telegram" style="background:#0088cc;color:white;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;text-decoration:none;box-shadow:0 4px 12px rgba(0,136,204,.3);">✈️</a>
+        <a href="https://wa.me/33666370602?text=Bonjour%20IZEO%20CAB,%20j%27ai%20une%20question%20sur%20le%20calculateur%20VTC" target="_blank" rel="noopener" title="Contact WhatsApp" style="background:#25D366;color:white;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;text-decoration:none;box-shadow:0 4px 12px rgba(37,211,102,.3);">💬</a>
+        <a href="https://t.me/INFO_C_R_VTC" target="_blank" rel="noopener" title="Contact Telegram" style="background:#0088cc;color:white;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;text-decoration:none;box-shadow:0 4px 12px rgba(0,136,204,.3);">✈️</a>
     </div>
     <script type="application/ld+json">
     {
@@ -1047,16 +1047,12 @@ function calculerIK() {
 }
 
 // ============ STRIPE CHECKOUT ============
-// Remplace STRIPE_PUBLIC_KEY par ta clé publique Stripe
-const STRIPE_PK = 'pk_live_XXXXXXXXXXXXX'; // ← À REMPLACER
+const STRIPE_PK = 'pk_live_Ddjbin87JpzPXxeyw9uao27a00e4kg3gZu';
 
 function openStripeCheckout() {
-    if (STRIPE_PK === 'pk_live_XXXXXXXXXXXXX') {
-        alert('🛒 Paiement Stripe en cours de configuration.\n\nContacte-moi sur WhatsApp pour débloquer ton accès PRO : 19,99€');
-        return;
-    }
-    // Redirection vers Stripe Checkout (lien de paiement simple)
-    window.open('https://buy.stripe.com/XXXXXXXXXXXXX', '_blank');
+    // Redirection vers le Payment Link Stripe (à créer dans ton dashboard Stripe)
+    // Une fois le Payment Link créé, remplace l'URL ci-dessous :
+    window.open('https://buy.stripe.com/PLACEHOLDER', '_blank');
 }
 </script>
 <script src="https://js.stripe.com/v3/"></script>
