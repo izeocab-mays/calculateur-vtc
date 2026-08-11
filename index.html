@@ -472,7 +472,7 @@
 
         <!-- CONTENU TEXTE INDEXABLE — SEO -->
         <div class="card" style="line-height:1.7;">
-            <p><strong>Un chauffeur VTC qui roule sans connaître ses vrais chiffres roule à l'aveugle.</strong> Le chiffre d'affaires ne dit pas tout : entre les commissions plateformes (jusqu'à 25%), le carburant (+30% depuis 2022), l'assurance, l'entretien et les cotisations sociales, <strong>votre revenu net peut être bien inférieur à ce que vous imaginez</strong>.</p>
+            <p><strong>Un chauffeur VTC qui roule sans connaître ses vrais chiffres roule à l'aveugle.</strong> Le chiffre d'affaires ne dit pas tout : entre les commissions plateformes (25% en moyenne, jusqu'à 45% en commission variable chez Uber), le carburant (+30% depuis 2022), l'assurance, l'entretien et les cotisations sociales, <strong>votre revenu net peut être bien inférieur à ce que vous imaginez</strong>.</p>
             <p style="margin-top:10px;">Ce calculateur gratuit vous donne en <strong>2 minutes</strong> votre <strong>taux horaire net réel</strong>, votre <strong>seuil de rentabilité</strong> (le nombre minimum de courses pour ne pas perdre d'argent) et des <strong>conseils personnalisés</strong> basés sur les données réelles du métier (barèmes officiels URSSAF et Code Général des Impôts 2025).</p>
             <p style="margin-top:10px;"><strong>4 régimes fiscaux</strong> comparés : Auto-entrepreneur, Salarié (portage), Gérant non salarié (EURL/SASU), Indemnités kilométriques. <strong>TVA</strong> configurable (franchise, 10%, 20%).</p>
         </div>
@@ -490,6 +490,7 @@
                         <option value="ik">Indemnités Kilométriques (IK)</option>
                     </select>
                     <span class="hint" id="regimeHint">Cotisations ~26,6% du CA. Abattement forfaitaire pour frais.</span>
+                    <a href="#" onclick="return false;" style="font-size:0.7rem;color:var(--blue-accent);text-decoration:underline;cursor:pointer;margin-top:4px;">→ Parler à un expert-comptable spécialisé VTC (devis gratuit)</a>
                 </div>
                 <div class="form-group">
                     <label>Régime TVA</label>
@@ -545,8 +546,9 @@
                     <input type="number" id="divers" value="80" min="0" step="10">
                 </div>
                 <div class="form-group">
-                    <label>Commission plateforme (%)</label>
-                    <input type="number" id="commission" value="25" min="0" max="50" step="1">
+                <label>Commission plateforme (%)</label>
+                <input type="number" id="commission" value="25" min="0" max="45" step="1">
+                <span class="hint">Uber ~25% en moyenne, jusqu'à 45% en commission variable. Bolt ~20%, Heetch ~15%.</span>
                 </div>
             </div>
         </div>
@@ -558,10 +560,12 @@
                 <div class="form-group">
                     <label>Location véhicule (€)</label>
                     <input type="number" id="location" value="375" min="0" step="10">
+                    <a href="#" onclick="return false;" style="font-size:0.7rem;color:var(--blue-accent);text-decoration:underline;cursor:pointer;">→ Comparer les offres de leasing VTC</a>
                 </div>
                 <div class="form-group">
                     <label>Assurance (€)</label>
                     <input type="number" id="assurance" value="120" min="0" step="5">
+                    <a href="#" onclick="return false;" style="font-size:0.7rem;color:var(--blue-accent);text-decoration:underline;cursor:pointer;">→ Comparer les assurances VTC (jusqu'à 30% d'économie)</a>
                 </div>
                 <div class="form-group">
                     <label>Carte VTC / pro (€)</label>
@@ -604,6 +608,36 @@
             </div>
         </div>
 
+        <!-- Scénarios rapides -->
+        <div class="card" style="background:#fafbfc;">
+            <h2><span class="icon">⚡</span> Scénarios rapides</h2>
+            <p style="font-size:0.8rem;color:var(--gray-500);margin-bottom:10px;">Clique sur un profil pour pré-remplir le calculateur :</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button class="btn btn-outline btn-sm" onclick="loadScenario('uber_paris')">🚗 Uber Paris (full-time)</button>
+                <button class="btn btn-outline btn-sm" onclick="loadScenario('uber_province')">🏠 Uber Province</button>
+                <button class="btn btn-outline btn-sm" onclick="loadScenario('multi_plateforme')">📱 Multi-plateformes</button>
+                <button class="btn btn-outline btn-sm" onclick="loadScenario('client_direct')">🤝 Client direct (0% commission)</button>
+            </div>
+        </div>
+
+        <!-- RESULT STICKY (live preview) -->
+        <div class="card" id="livePreview" style="display:none;position:sticky;top:80px;z-index:50;background:var(--navy);color:white;border:none;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                    <div style="font-size:0.75rem;color:var(--gray-400);">Revenu net estimé</div>
+                    <div style="font-size:1.8rem;font-weight:800;color:var(--gold-light);" id="liveRevenue">— €</div>
+                </div>
+                <div>
+                    <div style="font-size:0.75rem;color:var(--gray-400);">Taux horaire net</div>
+                    <div style="font-size:1.4rem;font-weight:700;color:white;" id="liveHourly">— €/h</div>
+                </div>
+                <div>
+                    <div style="font-size:0.75rem;color:var(--gray-400);">Seuil rentabilité</div>
+                    <div style="font-size:1.4rem;font-weight:700;color:white;" id="liveSeuil">— courses</div>
+                </div>
+            </div>
+        </div>
+
         <!-- Tableau Freemium -->
         <div class="card" style="background:#fafbfc;">
             <h2><span class="icon">⭐</span> Gratuit vs Premium</h2>
@@ -638,13 +672,15 @@
             </div>
         </div>
 
-        <!-- Email -->
-        <div class="card">
-            <h2><span class="icon">📧</span> Reçois ton rapport</h2>
-            <div style="text-align:center;">
-                <input type="email" id="email" placeholder="ton@email.com" style="max-width:320px;width:100%;">
-                <p style="font-size:0.75rem;color:var(--gray-500);margin-top:6px;">Jamais partagé. Reçois des conseils VTC par email.</p>
+        <!-- Email (lead magnet) -->
+        <div class="card" style="border:2px solid var(--gold);background:#fefdf8;">
+            <h2><span class="icon">📧</span> Reçois ton rapport gratuit</h2>
+            <p style="font-size:0.85rem;margin-bottom:12px;">📊 <strong>Reçois tes résultats détaillés + conseils personnalisés par email.</strong> Gratuit, sans spam.</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <input type="email" id="email" placeholder="ton@email.com" style="flex:1;min-width:200px;">
+                <button class="btn btn-gold btn-sm" onclick="calculer()">📊 Calculer & recevoir</button>
             </div>
+            <p style="font-size:0.7rem;color:var(--gray-500);margin-top:6px;">🔒 Ton email n'est jamais partagé. Désinscription en 1 clic.</p>
         </div>
 
         <button class="btn btn-gold" onclick="calculer()">📊 Calculer ma rentabilité</button>
@@ -765,6 +801,75 @@ function updateTvaHint() {
     document.getElementById('tvaHint').textContent = hints[v] || '';
 }
 
+// ============ SCÉNARIOS RAPIDES ============
+function loadScenario(type) {
+    const scenarios = {
+        uber_paris: { ca: 4500, courses: 120, carburant: 500, entretien: 150, divers: 80, commission: 25, location: 375, assurance: 120, carte_vtc: 50, telephone: 40, jours: 22, heures_jour: 10 },
+        uber_province: { ca: 3500, courses: 90, carburant: 450, entretien: 120, divers: 60, commission: 28, location: 375, assurance: 100, carte_vtc: 50, telephone: 40, jours: 20, heures_jour: 9 },
+        multi_plateforme: { ca: 5000, courses: 140, carburant: 550, entretien: 160, divers: 90, commission: 22, location: 375, assurance: 120, carte_vtc: 50, telephone: 40, jours: 24, heures_jour: 10 },
+        client_direct: { ca: 6000, courses: 80, carburant: 600, entretien: 180, divers: 100, commission: 0, location: 375, assurance: 140, carte_vtc: 50, telephone: 40, jours: 20, heures_jour: 9 }
+    };
+    const s = scenarios[type];
+    if (!s) return;
+    Object.keys(s).forEach(key => {
+        const el = document.getElementById(key);
+        if (el) el.value = s[key];
+    });
+    updateLivePreview();
+}
+
+// ============ LIVE PREVIEW (DEBOUNCED) ============
+let previewTimer = null;
+function updateLivePreview() {
+    const ca = parseFloat(document.getElementById('ca').value) || 0;
+    const carburant = parseFloat(document.getElementById('carburant').value) || 0;
+    const entretien = parseFloat(document.getElementById('entretien').value) || 0;
+    const divers = parseFloat(document.getElementById('divers').value) || 0;
+    const commissionPct = parseFloat(document.getElementById('commission').value) || 0;
+    const location = parseFloat(document.getElementById('location').value) || 0;
+    const assurance = parseFloat(document.getElementById('assurance').value) || 0;
+    const carte_vtc = parseFloat(document.getElementById('carte_vtc').value) || 0;
+    const telephone = parseFloat(document.getElementById('telephone').value) || 0;
+    const jours = parseInt(document.getElementById('jours').value) || 22;
+    const heuresJour = parseFloat(document.getElementById('heures_jour').value) || 8;
+    const regime = document.getElementById('regime').value;
+    const courses = parseInt(document.getElementById('courses').value) || 1;
+
+    const commissionAmt = ca * (commissionPct / 100);
+    const caNet = ca - commissionAmt;
+    const chargesVariables = carburant + entretien + divers;
+    const chargesFixes = location + assurance + carte_vtc + telephone;
+    const totalCharges = chargesVariables + chargesFixes;
+    const margeBrute = caNet - totalCharges;
+
+    let cotisations = 0;
+    if (regime === 'micro') cotisations = ca * 0.266;
+    else if (regime === 'salarie') cotisations = ca * 0.42;
+    else if (regime === 'gns') cotisations = margeBrute > 0 ? margeBrute * 0.15 : 0;
+
+    const revenuNetAvantImpots = margeBrute - cotisations;
+    const impots = revenuNetAvantImpots > 0 ? revenuNetAvantImpots * 0.1 : 0;
+    const revenuNet = revenuNetAvantImpots - impots;
+
+    const heuresMois = jours * heuresJour;
+    const tauxHoraireNet = heuresMois > 0 ? revenuNet / heuresMois : 0;
+    const panierMoyen = courses > 0 ? ca / courses : 0;
+    const seuilCourses = panierMoyen > 0 ? Math.ceil(totalCharges / panierMoyen) : 0;
+
+    document.getElementById('livePreview').style.display = 'block';
+    document.getElementById('liveRevenue').textContent = Math.round(revenuNet).toLocaleString('fr-FR') + ' €';
+    document.getElementById('liveHourly').textContent = Math.round(tauxHoraireNet) + ' €/h';
+    document.getElementById('liveSeuil').textContent = seuilCourses + ' courses';
+}
+
+// Debounce on inputs
+document.querySelectorAll('#page1 input, #page1 select').forEach(el => {
+    el.addEventListener('input', () => {
+        clearTimeout(previewTimer);
+        previewTimer = setTimeout(updateLivePreview, 300);
+    });
+});
+
 // ============ PAGE 1 : CALCUL RENTABILITÉ ============
 function calculer() {
     const ca = parseFloat(document.getElementById('ca').value) || 0;
@@ -867,6 +972,11 @@ function calculer() {
         advice += "<br><br>📌 <strong>Info régime :</strong> À " + Math.round(ca).toLocaleString('fr-FR') + "€/mois, tu dépasses probablement le plafond micro-entrepreneur (77 700€/an pour services). Pense à passer en EURL/SASU pour déduire tes charges réelles.";
     }
 
+    // Alertes spécifiques commission variable
+    if (commissionPct >= 35) {
+        advice += "<br><br>🚨 <strong>Commission plateforme élevée (" + commissionPct + "%) :</strong> Uber applique désormais une commission variable pouvant atteindre 45%. À ce niveau, ta plateforme prend plus d'un tiers de tes courses. Développe impérativement une clientèle directe.";
+    }
+
     // Ajout liens affiliation (contextuels)
     advice += "<br><br><span style='font-size:0.8rem;color:var(--gray-500);'>🔗 <strong>Partenaires recommandés :</strong></span>";
     if (assurance > 100) advice += "<br><span class='affiliate'>→ Comparateur assurance VTC (économisez jusqu'à 30%)</span>";
@@ -928,6 +1038,14 @@ function calculer() {
                 <div class="metric">
                     <div class="value">${seuilCourses}</div>
                     <div class="label">Courses/mois (seuil)</div>
+                </div>
+                <div class="metric">
+                    <div class="value">${Math.round(seuilCourses / jours)}</div>
+                    <div class="label">Courses/jour minimum</div>
+                </div>
+                <div class="metric">
+                    <div class="value">${Math.round(2000 / Math.max(tauxHoraireNet, 1))}h</div>
+                    <div class="label">Heures pour 2000€ net</div>
                 </div>
                 <div class="metric">
                     <div class="value">${Math.round(tauxHoraireBrut)} €</div>
