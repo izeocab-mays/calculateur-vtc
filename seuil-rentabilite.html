@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seuil de rentabilité VTC : combien de courses par jour pour être rentable ? | Calculateur Rentabilité VTC</title>
+    <meta name="description" content="Calculez le nombre minimum de courses par jour pour couvrir vos charges fixes et dégager un revenu. Le seuil de rentabilité VTC expliqué simplement.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://calculateur-rentabilite-vtc.com/seuil-rentabilite.html">
+    <meta property="og:title" content="Seuil de rentabilité VTC : combien de courses par jour ?">
+    <meta property="og:description" content="Le nombre minimum de courses pour ne pas perdre d'argent : méthode de calcul, simulateur et objectif de revenu.">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Seuil de rentabilité VTC : combien de courses par jour pour être rentable ?",
+      "author": {"@type":"Organization","name":"Calculateur Rentabilité VTC"},
+      "datePublished": "2026-08-15",
+      "dateModified": "2026-08-15",
+      "description": "Méthode et simulateur pour calculer le seuil de rentabilité d'un chauffeur VTC : courses minimum par jour, heures pour atteindre un objectif de revenu."
+    }
+    </script>
+    <style>
+        :root {--navy:#0a1628;--navy-light:#132038;--navy-mid:#1e3355;--white:#fff;--gray-50:#f8f9fa;--gray-200:#e2e6ea;--gray-400:#9aa3af;--gray-500:#6b7280;--gray-700:#374151;--gray-900:#111827;--gold:#c8963e;--gold-light:#e0b15f;--radius:10px;}
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,sans-serif;background:var(--gray-50);color:var(--gray-900);line-height:1.7;}
+        .header{background:var(--navy);color:var(--white);padding:16px 24px;box-shadow:0 4px 16px rgba(0,0,0,.1);}
+        .header-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+        .header .logo{font-size:1.2rem;font-weight:800;display:flex;align-items:center;}
+        .header .logo span{color:var(--gold);}
+        .header .slogan{color:var(--gray-400);font-size:.8rem;}
+        .header a{color:var(--white);text-decoration:none;font-size:.9rem;font-weight:600;padding:8px 16px;border:1px solid rgba(255,255,255,.3);border-radius:6px;transition:all .2s;}
+        .header a:hover{background:rgba(255,255,255,.1);}
+        .container{max-width:860px;margin:0 auto;padding:30px 20px 60px;}
+        h1{font-size:2rem;color:var(--navy);margin-bottom:6px;line-height:1.25;}
+        .date{color:var(--gray-500);font-size:.85rem;margin-bottom:24px;}
+        h2{font-size:1.3rem;color:var(--navy);margin:28px 0 10px;border-left:3px solid var(--gold);padding-left:12px;}
+        h3{font-size:1.05rem;color:var(--navy-light);margin:18px 0 8px;}
+        .card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+        table{width:100%;border-collapse:collapse;margin:12px 0;}
+        th,td{border:1px solid var(--gray-200);padding:10px 14px;text-align:left;font-size:.9rem;}
+        th{background:var(--navy);color:var(--white);font-weight:600;}
+        tr:nth-child(even){background:var(--gray-50);}
+        .cta{background:var(--navy);color:var(--white);text-align:center;padding:24px;border-radius:var(--radius);margin:28px 0;}
+        .cta a{display:inline-block;background:var(--gold);color:var(--navy);padding:12px 28px;border-radius:8px;font-weight:700;text-decoration:none;margin-top:10px;transition:all .2s;}
+        .cta a:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(200,150,62,.3);}
+        ul{padding-left:20px;margin:8px 0;}
+        li{margin:4px 0;}
+        .footer{text-align:center;padding:16px;font-size:.75rem;color:var(--gray-500);border-top:1px solid var(--gray-200);}
+        .sim{background:var(--navy);color:var(--white);border-radius:var(--radius);padding:24px;margin:18px 0;}
+        .sim label{display:block;font-size:.85rem;color:var(--gray-400);margin-top:14px;}
+        .sim input{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--gray-200);font-size:1rem;margin-top:4px;}
+        .sim .result{background:var(--navy-light);border-radius:8px;padding:16px;margin-top:16px;text-align:center;}
+        .sim .result .big{font-size:1.9rem;font-weight:800;color:var(--gold-light);}
+        @media(max-width:640px){.header-inner{flex-direction:column;text-align:center;}h1{font-size:1.5rem;}}
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div>
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 36 36" style="vertical-align:middle;margin-right:8px;">
+                    <rect x="2" y="4" width="32" height="28" rx="4" fill="none" stroke="#c8963e" stroke-width="2.5"/>
+                    <rect x="6" y="8" width="24" height="5" rx="2" fill="#c8963e"/>
+                    <circle cx="12" cy="24" r="4" fill="none" stroke="white" stroke-width="2"/>
+                    <circle cx="24" cy="24" r="4" fill="none" stroke="white" stroke-width="2"/>
+                    <line x1="12" y1="20" x2="15" y2="24" stroke="white" stroke-width="1.5"/>
+                    <line x1="24" y1="20" x2="21" y2="24" stroke="white" stroke-width="1.5"/>
+                </svg>
+                Calculateur <span>VTC</span>
+            </div>
+            <div class="slogan">Rentabilité · Charges · Statuts</div>
+        </div>
+        <a href="/">← Retour au calculateur</a>
+    </div>
+</header>
+<div class="container">
+    <h1>Seuil de rentabilité VTC : combien de courses par jour pour être rentable ?</h1>
+    <p class="date">Mis à jour : Août 2026</p>
+
+    <div class="card">
+        <p><strong>Le seuil de rentabilité, c'est le nombre minimum de courses que vous devez faire chaque jour pour couvrir vos charges — avant de gagner le moindre euro pour vous.</strong> Beaucoup de chauffeurs roulent « à perte » sans le savoir, parce qu'ils n'ont jamais calculé ce seuil.</p>
+    </div>
+
+    <h2>La formule, simplement</h2>
+    <div class="card">
+        <p>Le seuil de rentabilité se calcule en 3 étapes :</p>
+        <ul>
+            <li><strong>1. Vos charges fixes mensuelles</strong> : location, assurance, carte VTC, téléphone, comptable — tout ce que vous payez même si vous ne roulez pas.</li>
+            <li><strong>2. Votre marge par course</strong> : prix moyen d'une course − (commission plateforme + carburant de la course).</li>
+            <li><strong>3. Le seuil</strong> : charges fixes ÷ marge par course = nombre de courses minimum par mois.</li>
+        </ul>
+    </div>
+
+    <h2>Exemple concret</h2>
+    <div class="card">
+        <table>
+            <tr><th>Élément</th><th>Montant</th></tr>
+            <tr><td>Location véhicule</td><td>375€/mois</td></tr>
+            <tr><td>Assurance VTC</td><td>150€/mois</td></tr>
+            <tr><td>Carte VTC + téléphone</td><td>90€/mois</td></tr>
+            <tr><td><strong>Total charges fixes</strong></td><td><strong>615€/mois</strong></td></tr>
+            <tr><td>Prix moyen d'une course</td><td>15€</td></tr>
+            <tr><td>− Commission Uber 25%</td><td>−3,75€</td></tr>
+            <tr><td>− Carburant estimé</td><td>−1,50€</td></tr>
+            <tr><td><strong>Marge par course</strong></td><td><strong>~9,75€</strong></td></tr>
+        </table>
+        <p style="margin-top:10px;"><strong>Seuil = 615 ÷ 9,75 ≈ 63 courses/mois</strong>, soit environ <strong>3 courses par jour</strong> (sur 22 jours travaillés) uniquement pour couvrir les charges fixes. En dessous, vous perdez de l'argent.</p>
+    </div>
+
+    <h2>Simulateur de seuil de rentabilité</h2>
+    <div class="sim">
+        <label for="charges">Charges fixes mensuelles (€)</label>
+        <input type="number" id="charges" value="615" min="0" step="5">
+        <label for="prix">Prix moyen d'une course (€)</label>
+        <input type="number" id="prix" value="15" min="0" step="0.5">
+        <label for="comm">Commission plateforme (%)</label>
+        <input type="number" id="comm" value="25" min="0" max="45" step="1">
+        <label for="carbu">Carburant moyen par course (€)</label>
+        <input type="number" id="carbu" value="1.5" min="0" step="0.1">
+        <label for="jours">Jours travaillés / mois</label>
+        <input type="number" id="jours" value="22" min="1" max="31" step="1">
+        <div class="result">
+            <div>Courses minimum pour couvrir vos charges</div>
+            <div class="big" id="resMois">63 courses/mois</div>
+            <div style="margin-top:6px;font-size:.9rem;">soit <strong id="resJour">3</strong> courses/jour · marge par course : <span id="resMarge">9,75 €</span></div>
+        </div>
+    </div>
+
+    <h2>Et l'objectif de revenu ?</h2>
+    <div class="card">
+        <p>Le seuil ne couvre que les charges. Si vous visez <strong>2 000€ net/mois</strong>, ajoutez cet objectif au calcul :</p>
+        <ul>
+            <li>Charges fixes : 615€</li>
+            <li>+ Objectif de revenu : 2 000€</li>
+            <li>= Total à dégager en marge : 2 615€</li>
+            <li>÷ 9,75€ de marge par course ≈ <strong>268 courses/mois</strong> = <strong>12 courses/jour</strong></li>
+        </ul>
+        <p style="margin-top:10px;">C'est là que la <a href="commission-uber-bolt.html" style="color:var(--navy);">réduction de la commission</a> (clientèle directe) change tout : sans la commission de 25%, votre marge passe de 9,75€ à ~13,50€, et l'objectif tombe à <strong>9 courses/jour</strong>.</p>
+    </div>
+
+    <div class="cta">
+        <strong style="font-size:1.2rem;">🔢 Calculez votre seuil ET votre revenu net exact</strong>
+        <p style="margin-top:6px;">Notre calculateur gratuit calcule votre seuil de rentabilité, votre taux horaire net et l'impact de chaque charge.</p>
+        <a href="/">Lancer le calculateur →</a>
+    </div>
+</div>
+<div class="footer">
+    IZEO CAB — 2 Rue Antoine Coysevox, 69001 Lyon &bull; SIREN 837 936 509 &bull;
+    <a href="https://izeocab.com" style="color:var(--navy);">izeocab.com</a>
+</div>
+<script>
+    const charges = document.getElementById('charges');
+    const prix = document.getElementById('prix');
+    const comm = document.getElementById('comm');
+    const carbu = document.getElementById('carbu');
+    const jours = document.getElementById('jours');
+    function calc(){
+        const c = parseFloat(charges.value) || 0;
+        const p = parseFloat(prix.value) || 0;
+        const t = parseFloat(comm.value) || 0;
+        const k = parseFloat(carbu.value) || 0;
+        const j = parseFloat(jours.value) || 22;
+        const marge = p - (p * t / 100) - k;
+        const seuil = marge > 0 ? c / marge : 0;
+        document.getElementById('resMois').textContent = Math.ceil(seuil).toLocaleString('fr-FR') + ' courses/mois';
+        document.getElementById('resJour').textContent = Math.ceil(seuil / j);
+        document.getElementById('resMarge').textContent = marge.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
+    }
+    [charges, prix, comm, carbu, jours].forEach(el => el.addEventListener('input', calc));
+    calc();
+</script>
+</body>
+</html>

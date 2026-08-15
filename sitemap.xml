@@ -2,25 +2,49 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://calculateur-rentabilite-vtc.com/</loc>
-        <lastmod>2025-08-06</lastmod>
+        <lastmod>2026-08-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
+        <loc>https://calculateur-rentabilite-vtc.com/commission-uber-bolt.html</loc>
+        <lastmod>2026-08-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://calculateur-rentabilite-vtc.com/rentabilite-par-ville.html</loc>
+        <lastmod>2026-08-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://calculateur-rentabilite-vtc.com/cout-location-vtc.html</loc>
+        <lastmod>2026-08-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://calculateur-rentabilite-vtc.com/seuil-rentabilite.html</loc>
+        <lastmod>2026-08-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
         <loc>https://calculateur-rentabilite-vtc.com/guide-charges.html</loc>
-        <lastmod>2025-08-06</lastmod>
+        <lastmod>2026-08-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://calculateur-rentabilite-vtc.com/location-vs-achat.html</loc>
-        <lastmod>2025-08-06</lastmod>
+        <lastmod>2026-08-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://calculateur-rentabilite-vtc.com/statuts-vtc.html</loc>
-        <lastmod>2025-08-06</lastmod>
+        <lastmod>2026-08-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
