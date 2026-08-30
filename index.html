@@ -432,7 +432,17 @@
             .hero h1 { font-size: 1.5rem; }
             .metric-grid { grid-template-columns: 1fr 1fr; }
         }
-    </style>
+    
+        /* GUIDES VTC (bloc home) */
+        .guides-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+        .guide-card{display:block;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:18px;text-decoration:none;color:var(--gray-900);transition:all .2s;}
+        .guide-card:hover{border-color:var(--gold);box-shadow:var(--shadow-md);transform:translateY(-2px);}
+        .guide-card h3{font-size:1.05rem;color:var(--navy);margin:0 0 4px;}
+        .guide-card p{font-size:.88rem;color:var(--gray-500);margin:0;line-height:1.45;}
+        .nav-guides{color:var(--white);text-decoration:none;font-size:0.9rem;font-weight:600;padding:8px 16px;border:1px solid rgba(255,255,255,.3);border-radius:6px;transition:all .2s;}
+        .nav-guides:hover{background:rgba(255,255,255,.1);}
+        @media(max-width:640px){.guides-grid{grid-template-columns:1fr;}}
+</style>
 </head>
 <body>
 
@@ -457,6 +467,7 @@
             <button class="nav-tab active" onclick="switchPage('page1', this)">📊 Rentabilité VTC</button>
             <button class="nav-tab" onclick="switchPage('page2', this)">🚗 Indemnités KM</button>
         </nav>
+        <a href="guides.html" class="nav-guides">Guides</a>
     </div>
 </header>
 
@@ -732,6 +743,33 @@
 
         <button class="btn btn-gold" onclick="calculerIK()">📊 Calculer mes indemnités KM</button>
         <div id="results2"></div>
+    </div>
+
+    <!-- GUIDES VTC -->
+    <div class="card" style="margin-top:30px;">
+        <h2><span class="icon">📚</span> Guides VTC</h2>
+        <p style="font-size:.9rem;color:var(--gray-500);margin-bottom:16px;">Calcule ta rentabilité, puis creuse le sujet avec nos guides détaillés.</p>
+        <div class="guides-grid">
+            <a href="seuil-rentabilite.html" class="guide-card">
+                <h3>Seuil de rentabilité</h3>
+                <p>À partir de combien de courses par jour tu gagnes vraiment.</p>
+            </a>
+            <a href="commission-uber-bolt.html" class="guide-card">
+                <h3>Commissions Uber/Bolt</h3>
+                <p>Le vrai coût des commissions, et comment le limiter.</p>
+            </a>
+            <a href="cout-location-vtc.html" class="guide-card">
+                <h3>Coût de location</h3>
+                <p>Location de véhicule : les pièges et le budget réel.</p>
+            </a>
+            <a href="guide-charges.html" class="guide-card">
+                <h3>Charges cachées</h3>
+                <p>Carburant, assurance, entretien : ce qu'on oublie.</p>
+            </a>
+        </div>
+        <div style="margin-top:18px;">
+            <a href="guides.html" class="btn btn-gold">Voir tous les guides →</a>
+        </div>
     </div>
 
     <!-- FAQ SEO -->
