@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Location ou Achat Véhicule VTC ? Le Calcul Définitif 2025 | Calculateur Rentabilité VTC</title>
+    <title>Location ou Achat Véhicule VTC ? Le Calcul Définitif 2026 | Calculateur Rentabilité VTC</title>
     <meta name="description" content="Location LLD, crédit-bail ou achat comptant pour votre VTC ? Comparez les 3 options avec chiffres réels. Coût total, avantages fiscaux, flexibilité : le guide complet.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://calculateur-rentabilite-vtc.com/location-vs-achat.html">
     <script type="application/ld+json">
     {
       "@context":"https://schema.org","@type":"Article",
-      "headline":"Location ou Achat Véhicule VTC ? Le Calcul Définitif 2025",
+      "headline":"Location ou Achat Véhicule VTC ? Le Calcul Définitif 2026",
       "author":{"@type":"Organization","name":"IZEO CAB"},
       "description":"Comparaison complète location LLD, LOA et achat pour chauffeurs VTC."
     }
@@ -47,6 +47,11 @@
         .alert-warning{background:#fff8e1;border-left:3px solid #f59e0b;}
         .alert-info{background:#e3f2fd;border-left:3px solid #2563eb;}
         .footer{text-align:center;padding:16px;font-size:.75rem;color:var(--gray-500);border-top:1px solid var(--gray-200);}
+        .sim{background:var(--navy);color:var(--white);border-radius:var(--radius);padding:24px;margin:18px 0;}
+        .sim label{display:block;font-size:.85rem;color:#9ca3af;margin-top:14px;}
+        .sim input{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--gray-200);font-size:1rem;margin-top:4px;color:var(--gray-900);}
+        .sim .result{background:var(--navy-light);border-radius:8px;padding:16px;margin-top:16px;text-align:center;}
+        .sim .result .big{font-size:1.9rem;font-weight:800;color:#e8c56d;}
         @media(max-width:640px){.header-inner{flex-direction:column;text-align:center;}h1{font-size:1.5rem;}}
     </style>
 </head>
@@ -72,7 +77,7 @@
 </header>
 <div class="container">
     <h1>Location ou Achat de Véhicule VTC : le Calcul Définitif</h1>
-    <p class="date">Mis à jour : Août 2025 — Sources : BVTC, barèmes kilométriques 2025</p>
+    <p class="date">Mis à jour : Octobre 2026 — Sources : BVTC, barèmes kilométriques 2026</p>
 
     <div class="card">
         <p><strong>La première question que se pose tout chauffeur VTC : je loue ou j'achète ?</strong> La réponse n'est pas intuitive. Une location à 375€/semaine vous coûte <strong>19 500€/an</strong> — de quoi acheter une Prius en un an. Mais l'achat a ses contraintes. Voici le calcul complet.</p>
@@ -113,6 +118,23 @@
         </table>
     </div>
 
+    <h2>Simulateur : votre coût mensuel réel de location</h2>
+    <div class="sim">
+        <label for="loyer">Loyer hebdomadaire affiché (€)</label>
+        <input type="number" id="loyer" value="375" min="0" step="25">
+        <label for="km">Kilomètres parcourus / mois</label>
+        <input type="number" id="km" value="4000" min="0" step="100">
+        <label for="plafond">Plafond kilométrique annuel du contrat</label>
+        <input type="number" id="plafond" value="15000" min="0" step="1000">
+        <label for="surcout">Surcoût par km dépassé (€)</label>
+        <input type="number" id="surcout" value="0.15" min="0" step="0.01">
+        <div class="result">
+            <div>Coût mensuel réel (avec dépassement)</div>
+            <div class="big" id="res">1 912 €</div>
+            <div style="margin-top:6px;font-size:.9rem;">dont <span id="resDepass">412 €</span> de dépassement kilométrique</div>
+        </div>
+    </div>
+
     <h2>Le verdict</h2>
     <div class="card">
         <div class="alert alert-info">
@@ -129,7 +151,7 @@
     <h2>À lire aussi</h2>
     <div class="card related">
         <ul>
-            <li><a href="cout-location-vtc.html">Calculez le vrai coût de la location</a></li>
+            <li><a href="guide-charges.html">Maîtrisez l'ensemble de vos charges</a></li>
             <li><a href="statuts-vtc.html">Optimisez votre statut de chauffeur</a></li>
             <li><a href="seuil-rentabilite.html">Trouvez votre seuil de rentabilité</a></li>
         </ul>
@@ -140,12 +162,33 @@
         <a href="index.html" style="color:var(--navy);margin:0 8px;">Calculateur</a>
         <a href="commission-uber-bolt.html" style="color:var(--navy);margin:0 8px;">Commissions Uber/Bolt</a>
         <a href="rentabilite-par-ville.html" style="color:var(--navy);margin:0 8px;">Rentabilité par ville</a>
-        <a href="cout-location-vtc.html" style="color:var(--navy);margin:0 8px;">Coût de location</a>
+        <a href="location-vs-achat.html" style="color:var(--navy);margin:0 8px;">Coût de location</a>
         <a href="seuil-rentabilite.html" style="color:var(--navy);margin:0 8px;">Seuil de rentabilité</a>
         <a href="guide-charges.html" style="color:var(--navy);margin:0 8px;">Charges cachées</a>
         <a href="statuts-vtc.html" style="color:var(--navy);margin:0 8px;">Statuts fiscaux</a>
     </div>
     IZEO CAB — 2 Rue Antoine Coysevox, 69001 Lyon &bull; SIREN 837 936 509
 </div>
+<script>
+    const loyer = document.getElementById('loyer');
+    const km = document.getElementById('km');
+    const plafond = document.getElementById('plafond');
+    const surcout = document.getElementById('surcout');
+    function calc(){
+        const l = parseFloat(loyer.value) || 0;
+        const k = parseFloat(km.value) || 0;
+        const p = parseFloat(plafond.value) || 0;
+        const s = parseFloat(surcout.value) || 0;
+        const kmAn = k * 12;
+        const depass = Math.max(0, kmAn - p);
+        const depassMois = (depass * s) / 12;
+        const loyerMois = l * 52 / 12;
+        const total = loyerMois + depassMois;
+        document.getElementById('res').textContent = Math.round(total).toLocaleString('fr-FR') + ' €';
+        document.getElementById('resDepass').textContent = Math.round(depassMois).toLocaleString('fr-FR') + ' €';
+    }
+    [loyer, km, plafond, surcout].forEach(el => el.addEventListener('input', calc));
+    calc();
+</script>
 </body>
 </html>

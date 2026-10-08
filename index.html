@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculateur Rentabilité VTC 2025 — Simulez votre revenu net en 2 minutes | IZEO CAB</title>
-    <meta name="description" content="Calculez votre revenu net de chauffeur VTC en 2 minutes. CA, charges, cotisations, taux horaire : simulateur gratuit avec conseils personnalisés. Micro-entrepreneur, EURL, SASU, portage salarial.">
+    <title>Calculateur Rentabilité VTC 2026 — Simulez votre revenu net en 2 minutes | IZEO CAB</title>
+    <meta name="description" content="Calculez votre revenu net de chauffeur VTC en 2 minutes. CA, charges, cotisations, taux horaire : simulateur gratuit avec conseils personnalisés. Micro-entreprise, SASU, CAE ou portage salarial.">
     <meta name="keywords" content="calculateur rentabilité VTC, simulateur revenu VTC, chauffeur VTC revenu, charges VTC, calcul revenu net VTC, rentabilité chauffeur, simulateur VTC gratuit">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://calculateur-rentabilite-vtc.com/">
-    <meta property="og:title" content="Calculateur Rentabilité VTC 2025 — Combien gagnez-vous vraiment ?">
+    <meta property="og:title" content="Calculateur Rentabilité VTC 2026 — Combien gagnez-vous vraiment ?">
     <meta property="og:description" content="Simulez votre revenu net de chauffeur VTC en 2 minutes. Charges, cotisations, taux horaire. Gratuit, sans inscription.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://calculateur-rentabilite-vtc.com/">
@@ -484,7 +484,7 @@
         <!-- CONTENU TEXTE INDEXABLE — SEO -->
         <div class="card" style="line-height:1.7;">
             <p><strong>Un chauffeur VTC qui roule sans connaître ses vrais chiffres roule à l'aveugle.</strong> Le chiffre d'affaires ne dit pas tout : entre les commissions plateformes (25% en moyenne, jusqu'à 45% en commission variable chez Uber), le carburant (+30% depuis 2022), l'assurance, l'entretien et les cotisations sociales, <strong>votre revenu net peut être bien inférieur à ce que vous imaginez</strong>.</p>
-            <p style="margin-top:10px;">Ce calculateur gratuit vous donne en <strong>2 minutes</strong> votre <strong>taux horaire net réel</strong>, votre <strong>seuil de rentabilité</strong> (le nombre minimum de courses pour ne pas perdre d'argent) et des <strong>conseils personnalisés</strong> basés sur les données réelles du métier (barèmes officiels URSSAF et Code Général des Impôts 2025).</p>
+            <p style="margin-top:10px;">Ce calculateur gratuit vous donne en <strong>2 minutes</strong> votre <strong>taux horaire net réel</strong>, votre <strong>seuil de rentabilité</strong> (le nombre minimum de courses pour ne pas perdre d'argent) et des <strong>conseils personnalisés</strong> basés sur les données réelles du métier (barèmes officiels URSSAF et Code Général des Impôts 2026).</p>
             <p style="margin-top:10px;"><strong>4 régimes fiscaux</strong> comparés : Auto-entrepreneur, Salarié (portage), Gérant non salarié (EURL/SASU), Indemnités kilométriques. <strong>TVA</strong> configurable (franchise, 10%, 20%).</p>
         </div>
 
@@ -500,7 +500,7 @@
                         <option value="gns">Gérant Non Salarié (EURL / SASU)</option>
                         <option value="ik">Indemnités Kilométriques (IK)</option>
                     </select>
-                    <span class="hint" id="regimeHint">Cotisations ~26,6% du CA. Abattement forfaitaire pour frais.</span>
+                    <span class="hint" id="regimeHint">Cotisations ~21,2% du CA. Abattement forfaitaire pour frais.</span>
                     <a href="#" onclick="return false;" style="font-size:0.7rem;color:var(--blue-accent);text-decoration:underline;cursor:pointer;margin-top:4px;">→ Parler à un expert-comptable spécialisé VTC (devis gratuit)</a>
                 </div>
                 <div class="form-group">
@@ -701,7 +701,7 @@
     <!-- ==================== PAGE 2 : CALCULATEUR IK ==================== -->
     <div id="page2" class="page">
         <div class="hero">
-            <h1>Calculateur Indemnités Kilométriques</h1>
+            <h2>Calculateur Indemnités Kilométriques</h2>
             <p class="subtitle">Simulez vos frais réels et comparez avec le barème fiscal des indemnités kilométriques.</p>
         </div>
 
@@ -758,7 +758,7 @@
                 <h3>Commissions Uber/Bolt</h3>
                 <p>Le vrai coût des commissions, et comment le limiter.</p>
             </a>
-            <a href="cout-location-vtc.html" class="guide-card">
+            <a href="location-vs-achat.html" class="guide-card">
                 <h3>Coût de location</h3>
                 <p>Location de véhicule : les pièges et le budget réel.</p>
             </a>
@@ -807,7 +807,7 @@
         <div style="margin-bottom:10px;font-size:.85rem;">
             <a href="commission-uber-bolt.html" style="color:var(--navy);margin:0 8px;">Commissions Uber/Bolt</a>
             <a href="rentabilite-par-ville.html" style="color:var(--navy);margin:0 8px;">Rentabilité par ville</a>
-            <a href="cout-location-vtc.html" style="color:var(--navy);margin:0 8px;">Coût de location</a>
+            <a href="location-vs-achat.html" style="color:var(--navy);margin:0 8px;">Coût de location</a>
             <a href="seuil-rentabilite.html" style="color:var(--navy);margin:0 8px;">Seuil de rentabilité</a>
             <a href="guide-charges.html" style="color:var(--navy);margin:0 8px;">Charges cachées</a>
             <a href="location-vs-achat.html" style="color:var(--navy);margin:0 8px;">Location vs achat</a>
@@ -893,7 +893,7 @@ function updateLivePreview() {
     const margeBrute = caNet - totalCharges;
 
     let cotisations = 0;
-    if (regime === 'micro') cotisations = ca * 0.266;
+    if (regime === 'micro') cotisations = ca * 0.212;
     else if (regime === 'salarie') cotisations = ca * 0.42;
     else if (regime === 'gns') cotisations = margeBrute > 0 ? margeBrute * 0.15 : 0;
 
@@ -957,7 +957,7 @@ function calculer() {
     // Fiscalité selon régime
     let cotisations = 0;
     if (regime === 'micro') {
-        cotisations = ca * 0.266;
+        cotisations = ca * 0.212;
     } else if (regime === 'salarie') {
         cotisations = ca * 0.42;
     } else if (regime === 'gns') {
