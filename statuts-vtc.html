@@ -60,43 +60,19 @@
       ]
     }
     </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="global.css">
     <style>
-        :root {--navy:#0a1628;--navy-light:#132038;--white:#fff;--gray-50:#f8f9fa;--gray-200:#e2e6ea;--gray-500:#6b7280;--gray-700:#374151;--gray-900:#111827;--gold:#c8963e;--green:#059669;--radius:10px;}
-        *{margin:0;padding:0;box-sizing:border-box;}
-        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,sans-serif;background:var(--gray-50);color:var(--gray-900);line-height:1.7;}
-        .header{background:var(--navy);color:var(--white);padding:16px 24px;box-shadow:0 4px 16px rgba(0,0,0,.1);}
-        .header-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
-        .header .logo{font-size:1.2rem;font-weight:800;}
-        .header .logo span{color:var(--gold);}
-        .header a{color:var(--white);text-decoration:none;font-size:.9rem;font-weight:600;padding:8px 16px;border:1px solid rgba(255,255,255,.3);border-radius:6px;transition:all .2s;}
-        .header a:hover{background:rgba(255,255,255,.1);}
-        .header-nav{display:flex;gap:8px;align-items:center;}
-        .header a.logo{border:none;padding:0;background:transparent;display:flex;align-items:center;font-size:1.2rem;font-weight:800;color:var(--white);}
-        .header a.logo:hover{background:transparent;}
-        .related a{color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);}
-        .related a:hover{color:var(--gold);}
-        .container{max-width:860px;margin:0 auto;padding:30px 20px 60px;}
-        h1{font-size:2rem;color:var(--navy);margin-bottom:6px;line-height:1.25;}
-        .date{color:var(--gray-500);font-size:.85rem;margin-bottom:24px;}
-        h2{font-size:1.3rem;color:var(--navy);margin:28px 0 10px;border-left:3px solid var(--gold);padding-left:12px;}
-        h3{font-size:1.05rem;color:var(--navy-light);margin:18px 0 8px;}
-        .card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.05);}
-        table{width:100%;border-collapse:collapse;margin:12px 0;}
-        th,td{border:1px solid var(--gray-200);padding:10px 12px;text-align:left;font-size:.85rem;vertical-align:top;}
-        th{background:var(--navy);color:var(--white);font-weight:600;}
-        tr:nth-child(even){background:var(--gray-50);}
-        .highlight{background:#e8f5e9!important;}
-        .cta{background:var(--navy);color:var(--white);text-align:center;padding:24px;border-radius:var(--radius);margin:28px 0;}
-        .cta a{display:inline-block;background:var(--gold);color:var(--navy);padding:12px 28px;border-radius:8px;font-weight:700;text-decoration:none;margin-top:10px;transition:all .2s;}
-        .cta a:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(200,150,62,.3);}
+.highlight{background:#e8f5e9!important;}
+
         .pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:8px 0;}
+
         .pro{background:#e8f5e9;padding:12px;border-radius:8px;font-size:.85rem;}
+
         .con{background:#ffebee;padding:12px;border-radius:8px;font-size:.85rem;}
-        ul{padding-left:20px;margin:8px 0;}
-        li{margin:4px 0;}
-        .footer{text-align:center;padding:16px;font-size:.75rem;color:var(--gray-500);border-top:1px solid var(--gray-200);}
-        .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
-        .table-wrap table{min-width:640px;}
+
         @media(max-width:640px){.header-inner{flex-direction:column;text-align:center;}h1{font-size:1.5rem;}.pros-cons{grid-template-columns:1fr;}}
     </style>
 </head>
@@ -133,16 +109,16 @@
         <div class="table-wrap">
         <table>
             <tr><th>Critère</th><th>Micro-entreprise</th><th>SASU</th><th>CAE Stairling</th><th>CAE Incom</th><th>Portage salarial</th></tr>
-            <tr><td><strong>Coût / Commission</strong></td><td>~21,2 % du CA (cotisations) + CFE</td><td>~1 500-2 500 €/an (compta) + charges</td><td>12 à 15 % du CA après plateforme (max ~1 000 €/mois)</td><td>« À partir de 5 % » (10 à 15 % selon sources)</td><td>~8 à 15 % du CA</td></tr>
-            <tr><td><strong>Fiche de paie</strong></td><td>Non</td><td>Non</td><td>Oui</td><td>Oui</td><td>Oui</td></tr>
-            <tr><td><strong>Chômage / Retraite</strong></td><td>Non / Très faible</td><td>Non / Optimisable</td><td>Oui (~400-500 €/mois)</td><td>Oui (~400-500 €/mois)</td><td>Oui (standard)</td></tr>
-            <tr><td><strong>Mutuelle</strong></td><td>Non</td><td>Non</td><td>Oui</td><td>Oui (50 % employeur)</td><td>Oui</td></tr>
-            <tr><td><strong>Responsabilité</strong></td><td>Patrimoine personnel engagé</td><td>Limitée aux apports</td><td>Portée par la structure</td><td>Portée par la structure</td><td>Portée par la structure</td></tr>
-            <tr><td><strong>Véhicule exigé</strong></td><td>Non</td><td>Non</td><td>Hybride/Électrique obligatoire</td><td>Non</td><td>Souvent à charge</td></tr>
-            <tr><td><strong>Crédit auto/immobilier</strong></td><td>Difficile (pas de fiche de paie)</td><td>Possible (bilans)</td><td>Facilité (fiche de paie)</td><td>Facilité (fiche de paie)</td><td>Facilité (fiche de paie)</td></tr>
-            <tr><td><strong>Paperasse</strong></td><td>Simplifiée mais à gérer</td><td>Lourde (expert-comptable)</td><td>Zéro</td><td>Zéro</td><td>Zéro</td></tr>
-            <tr><td><strong>Liberté plateformes</strong></td><td>Totale</td><td>Totale</td><td>Totale (multi + privés)</td><td>Totale (multi + privés)</td><td>Souvent exclusive</td></tr>
-            <tr><td><strong>Revenu net court terme</strong></td><td>Le plus élevé</td><td>Dépend de l'optimisation</td><td>Réduit par cumul des commissions</td><td>Réduit (env. -9 % vs micro)</td><td>Le plus faible (45-55 %)</td></tr>
+            <tr><td data-label="Critère"><strong>Coût / Commission</strong></td><td data-label="Micro-entreprise">~21,2 % du CA (cotisations) + CFE</td><td data-label="SASU">~1 500-2 500 €/an (compta) + charges</td><td data-label="CAE Stairling">12 à 15 % du CA après plateforme (max ~1 000 €/mois)</td><td data-label="CAE Incom">« À partir de 5 % » (10 à 15 % selon sources)</td><td data-label="Portage salarial">~8 à 15 % du CA</td></tr>
+            <tr><td data-label="Critère"><strong>Fiche de paie</strong></td><td data-label="Micro-entreprise">Non</td><td data-label="SASU">Non</td><td data-label="CAE Stairling">Oui</td><td data-label="CAE Incom">Oui</td><td data-label="Portage salarial">Oui</td></tr>
+            <tr><td data-label="Critère"><strong>Chômage / Retraite</strong></td><td data-label="Micro-entreprise">Non / Très faible</td><td data-label="SASU">Non / Optimisable</td><td data-label="CAE Stairling">Oui (~400-500 €/mois)</td><td data-label="CAE Incom">Oui (~400-500 €/mois)</td><td data-label="Portage salarial">Oui (standard)</td></tr>
+            <tr><td data-label="Critère"><strong>Mutuelle</strong></td><td data-label="Micro-entreprise">Non</td><td data-label="SASU">Non</td><td data-label="CAE Stairling">Oui</td><td data-label="CAE Incom">Oui (50 % employeur)</td><td data-label="Portage salarial">Oui</td></tr>
+            <tr><td data-label="Critère"><strong>Responsabilité</strong></td><td data-label="Micro-entreprise">Patrimoine personnel engagé</td><td data-label="SASU">Limitée aux apports</td><td data-label="CAE Stairling">Portée par la structure</td><td data-label="CAE Incom">Portée par la structure</td><td data-label="Portage salarial">Portée par la structure</td></tr>
+            <tr><td data-label="Critère"><strong>Véhicule exigé</strong></td><td data-label="Micro-entreprise">Non</td><td data-label="SASU">Non</td><td data-label="CAE Stairling">Hybride/Électrique obligatoire</td><td data-label="CAE Incom">Non</td><td data-label="Portage salarial">Souvent à charge</td></tr>
+            <tr><td data-label="Critère"><strong>Crédit auto/immobilier</strong></td><td data-label="Micro-entreprise">Difficile (pas de fiche de paie)</td><td data-label="SASU">Possible (bilans)</td><td data-label="CAE Stairling">Facilité (fiche de paie)</td><td data-label="CAE Incom">Facilité (fiche de paie)</td><td data-label="Portage salarial">Facilité (fiche de paie)</td></tr>
+            <tr><td data-label="Critère"><strong>Paperasse</strong></td><td data-label="Micro-entreprise">Simplifiée mais à gérer</td><td data-label="SASU">Lourde (expert-comptable)</td><td data-label="CAE Stairling">Zéro</td><td data-label="CAE Incom">Zéro</td><td data-label="Portage salarial">Zéro</td></tr>
+            <tr><td data-label="Critère"><strong>Liberté plateformes</strong></td><td data-label="Micro-entreprise">Totale</td><td data-label="SASU">Totale</td><td data-label="CAE Stairling">Totale (multi + privés)</td><td data-label="CAE Incom">Totale (multi + privés)</td><td data-label="Portage salarial">Souvent exclusive</td></tr>
+            <tr><td data-label="Critère"><strong>Revenu net court terme</strong></td><td data-label="Micro-entreprise">Le plus élevé</td><td data-label="SASU">Dépend de l'optimisation</td><td data-label="CAE Stairling">Réduit par cumul des commissions</td><td data-label="CAE Incom">Réduit (env. -9 % vs micro)</td><td data-label="Portage salarial">Le plus faible (45-55 %)</td></tr>
         </table>
         </div>
     </div>
@@ -202,10 +178,10 @@
         <p>Le contexte est tendu : érosion du pouvoir d'achat des chauffeurs de 7,2 % à 12,3 % entre 2021 et 2025 (source ARPE citée par la presse). Sur ~70 000 VTC actifs, seuls 1 500 à 2 000 ont rejoint les coopératives.</p>
         <table>
             <tr><th>Votre situation</th><th>Statut recommandé</th><th>Pourquoi</th></tr>
-            <tr><td>Je débute, je veux le plus simple</td><td><strong>Micro-entreprise</strong></td><td>Tester sans frais fixes, à condition de provisionner impôts et retraite</td></tr>
-            <tr><td>Je veux une fiche de paie pour un crédit</td><td><strong>CAE ou portage</strong></td><td>La fiche de paie facilite fortement l'emprunt (auto ou immobilier)</td></tr>
-            <tr><td>Je vise le revenu net max, frais importants, patrimoine protégé</td><td><strong>SASU</strong></td><td>Déduction des frais réels + récupération TVA + optimisation</td></tr>
-            <tr><td>Je veux un vrai CDI classique, j'accepte le prix</td><td><strong>Portage salarial</strong></td><td>Protection sociale standard, mais net le plus faible</td></tr>
+            <tr><td data-label="Votre situation">Je débute, je veux le plus simple</td><td data-label="Statut recommandé"><strong>Micro-entreprise</strong></td><td data-label="Pourquoi">Tester sans frais fixes, à condition de provisionner impôts et retraite</td></tr>
+            <tr><td data-label="Votre situation">Je veux une fiche de paie pour un crédit</td><td data-label="Statut recommandé"><strong>CAE ou portage</strong></td><td data-label="Pourquoi">La fiche de paie facilite fortement l'emprunt (auto ou immobilier)</td></tr>
+            <tr><td data-label="Votre situation">Je vise le revenu net max, frais importants, patrimoine protégé</td><td data-label="Statut recommandé"><strong>SASU</strong></td><td data-label="Pourquoi">Déduction des frais réels + récupération TVA + optimisation</td></tr>
+            <tr><td data-label="Votre situation">Je veux un vrai CDI classique, j'accepte le prix</td><td data-label="Statut recommandé"><strong>Portage salarial</strong></td><td data-label="Pourquoi">Protection sociale standard, mais net le plus faible</td></tr>
         </table>
     </div>
 
