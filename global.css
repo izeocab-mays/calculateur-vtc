@@ -1,35 +1,41 @@
 /* ============================================================
    IZEO CAB — Calculateur Rentabilité VTC
-   global.css — design system partagé (noyau extrait des pages)
-   Palette navy/or · refonte design (Emil Kowalski / Taste / Impeccable)
+   global.css — design system partagé
+   Palette navy/or · OKLCH · hairline-first · échelle discrète
+   (Emil Kowalski / Taste / Impeccable)
    ============================================================ */
 
-/* ---------- TOKENS ---------- */
+/* ---------- TOKENS (OKLCH) ---------- */
 :root {
-    --navy: #0a1628;
-    --navy-light: #132038;
-    --navy-mid: #1e3355;
-    --gold: #c8963e;
-    --gold-light: #e8c56d;
-    --white: #ffffff;
-    --gray-50: #f8f9fa;
-    --gray-100: #f0f2f5;
-    --gray-200: #e2e6ea;
-    --gray-300: #cbd1d8;
-    --gray-400: #9ca3af;
-    --gray-500: #6b7280;
-    --gray-700: #374151;
-    --gray-900: #111827;
+    /* navy (fond sombre) */
+    --navy: oklch(0.17 0.03 260);
+    --navy-light: oklch(0.21 0.035 260);
+    --navy-mid: oklch(0.30 0.05 260);
+    /* or (accent) */
+    --gold: oklch(0.68 0.12 80);
+    --gold-light: oklch(0.80 0.11 85);
+    /* neutres (pas de blanc/noir pur) */
+    --white: oklch(0.99 0.005 260);
+    --gray-50: oklch(0.975 0.003 260);
+    --gray-100: oklch(0.95 0.004 260);
+    --gray-200: oklch(0.90 0.006 260);
+    --gray-300: oklch(0.82 0.007 260);
+    --gray-400: oklch(0.67 0.01 260);
+    --gray-500: oklch(0.52 0.01 260);
+    --gray-700: oklch(0.32 0.015 260);
+    --gray-900: oklch(0.19 0.015 260);
+    /* accents sémantiques */
     --green: #059669;
     --red: #dc2626;
     --amber: #d97706;
     --blue-accent: #2563eb;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,.05);
-    --shadow-md: 0 4px 16px rgba(0,0,0,.1);
-    --shadow-lg: 0 8px 32px rgba(0,0,0,.12);
-    --radius: 10px;
+    /* profondeur : hairline d'abord, ombres seulement si utile */
+    --border: oklch(0.90 0.006 260);
+    --shadow-sm: 0 1px 2px oklch(0.3 0.02 260 / 0.06);
+    --shadow-md: 0 6px 20px oklch(0.3 0.02 260 / 0.12);
+    /* échelle discrète */
     --radius-sm: 4px;
-    --radius-md: 8px;
+    --radius: 8px;
     --radius-lg: 12px;
     --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
     --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
@@ -43,7 +49,7 @@ body {
     font-family: var(--font-sans);
     background: var(--gray-50);
     color: var(--gray-900);
-    line-height: 1.7;
+    line-height: 1.75;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
 }
@@ -53,7 +59,7 @@ body {
     background: var(--navy);
     color: var(--white);
     padding: 16px 24px;
-    box-shadow: 0 4px 16px rgba(0,0,0,.1);
+    border-bottom: 1px solid oklch(1 0 0 / 0.06);
 }
 .header-inner {
     max-width: 860px;
@@ -77,11 +83,11 @@ body {
     font-size: .9rem;
     font-weight: 600;
     padding: 8px 16px;
-    border: 1px solid rgba(255,255,255,.3);
+    border: 1px solid oklch(1 0 0 / 0.3);
     border-radius: 6px;
     transition: background .2s;
 }
-.header a:hover { background: rgba(255,255,255,.1); }
+.header a:hover { background: oklch(1 0 0 / 0.1); }
 .header-nav { display: flex; gap: 8px; align-items: center; }
 .header a.logo {
     border: none; padding: 0; background: transparent;
@@ -91,7 +97,7 @@ body {
 .header a.logo:hover { background: transparent; }
 
 /* ---------- CONTENEUR ---------- */
-.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 60px; }
+.container { max-width: 860px; margin: 0 auto; padding: 32px 20px 64px; }
 
 /* ---------- TYPOGRAPHIE ---------- */
 h1 {
@@ -105,9 +111,14 @@ h2 {
     font-size: 1.3rem;
     color: var(--navy);
     margin: 28px 0 10px;
-    border-left: 3px solid var(--gold);
-    padding-left: 12px;
     letter-spacing: -0.01em;
+}
+h2 .h2-icon {
+    display: inline-block;
+    vertical-align: -3px;
+    margin-right: 10px;
+    flex-shrink: 0;
+    color: var(--gold);
 }
 h3 {
     font-size: 1.05rem;
@@ -116,14 +127,20 @@ h3 {
 }
 .date { color: var(--gray-500); font-size: .85rem; margin-bottom: 24px; }
 
+/* texte courant : respiration (dark type needs air) */
+.container > p,
+.container > ul,
+.container > ol {
+    max-width: 65ch;
+}
+
 /* ---------- CONTENU ---------- */
 .card {
     background: var(--white);
-    border: 1px solid var(--gray-200);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 24px;
     margin-bottom: 18px;
-    box-shadow: var(--shadow-sm);
 }
 ul { padding-left: 20px; margin: 8px 0; }
 li { margin: 4px 0; }
@@ -135,6 +152,17 @@ li { margin: 4px 0; }
     border-bottom: 1px solid var(--gold);
 }
 .related a:hover { color: var(--gold); }
+
+/* callout : filet or à gauche, pas de fond (anti nested-card) */
+.callout {
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    margin: 16px 0;
+    font-size: 0.92rem;
+    color: var(--gray-700);
+    background: transparent;
+    max-width: 65ch;
+}
 
 /* ---------- CTA ---------- */
 .cta {
@@ -156,13 +184,13 @@ li { margin: 4px 0; }
     margin-top: 10px;
     transition: transform .15s var(--ease-out), box-shadow .15s var(--ease-out);
 }
-.cta a:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(200,150,62,.3); }
+.cta a:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 .cta a:active { transform: scale(.97); }
 
 /* ---------- TABLEAUX ---------- */
 table { width: 100%; border-collapse: collapse; margin: 12px 0; }
 th, td {
-    border: 1px solid var(--gray-200);
+    border: 1px solid var(--border);
     padding: 10px 12px;
     text-align: left;
     font-size: .85rem;
@@ -180,22 +208,23 @@ tr:nth-child(even) { background: var(--gray-50); }
     padding: 16px;
     font-size: .75rem;
     color: var(--gray-500);
-    border-top: 1px solid var(--gray-200);
+    border-top: 1px solid var(--border);
 }
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 640px) {
     .header-inner { flex-direction: column; text-align: center; }
     h1 { font-size: 1.5rem; }
+    .container { padding-inline: 16px; }
 
-    /* Tableaux → cartes empilées (fin du scroll horizontal) */
+    /* Tableaux → cartes empilées */
     .table-wrap table { min-width: 0; }
     table, thead, tbody, th, td, tr { display: block; width: 100%; }
     thead tr { display: none; }
     table tr {
         margin-bottom: 12px;
-        border: 1px solid var(--gray-200);
-        border-radius: 8px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
         padding: 12px;
         background: var(--white);
     }
