@@ -34,8 +34,8 @@
     <style>
 /* HEADER */
         .header {
-            background: var(--navy);
-            color: var(--white);
+            background: var(--brand);
+            color: var(--on-dark);
             padding: 16px 24px;
             box-shadow: var(--shadow-md);
             position: sticky;
@@ -89,12 +89,12 @@
         }
 
         .nav-tab.active {
-            background: var(--white);
-            color: var(--navy);
+            background: var(--surface);
+            color: var(--ink);
         }
 
         .nav-tab:hover:not(.active) {
-            color: var(--white);
+            color: var(--on-dark);
             background: rgba(255,255,255,0.1);
         }
 
@@ -121,7 +121,7 @@
 
         .hero h1 {
             font-size: 2rem;
-            color: var(--navy);
+            color: var(--ink);
             margin-bottom: 6px;
         }
 
@@ -141,7 +141,7 @@
             font-family: var(--font-mono);
             font-size: 1.6rem;
             font-weight: 700;
-            color: var(--navy);
+            color: var(--ink);
             font-variant-numeric: tabular-nums;
         }
         .hero-stat .stat-label {
@@ -168,6 +168,11 @@
             color: var(--gray-500);
             margin-top: 10px;
         }
+        @keyframes resultFlash {
+            from { opacity: 0.4; transform: translateY(3px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .live-result-flash { animation: resultFlash 150ms ease-out; }
 
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(10px); }
@@ -182,7 +187,7 @@
 
         /* CARD */
         .card {
-            background: var(--white);
+            background: var(--surface);
             border: 1px solid var(--gray-200);
             border-radius: var(--radius);
             padding: 24px;
@@ -192,7 +197,7 @@
 
         .card h2 {
             font-size: 1.1rem;
-            color: var(--navy);
+            color: var(--ink);
             margin-bottom: 16px;
             display: flex;
             align-items: center;
@@ -238,7 +243,7 @@
             padding: 10px 14px;
             font-size: 0.95rem;
             color: var(--gray-900);
-            background: var(--white);
+            background: var(--surface);
             transition: transform 0.2s var(--ease-out), opacity 0.2s, background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
         }
 
@@ -257,8 +262,8 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            background: var(--navy);
-            color: var(--white);
+            background: var(--brand);
+            color: var(--on-dark);
             border: none;
             border-radius: 8px;
             padding: 13px 28px;
@@ -289,12 +294,12 @@
         .btn-outline {
             background: transparent;
             border: 2px solid var(--navy);
-            color: var(--navy);
+            color: var(--ink);
         }
 
         .btn-outline:hover {
-            background: var(--navy);
-            color: var(--white);
+            background: var(--brand);
+            color: var(--on-dark);
         }
 
         .btn-sm {
@@ -308,7 +313,7 @@
         #results1, #results2 { display: none; }
 
         .result-card {
-            background: var(--white);
+            background: var(--surface);
             border: 1px solid var(--gray-200);
             border-radius: var(--radius);
             padding: 22px;
@@ -317,7 +322,7 @@
         }
 
         .result-card h3 {
-            color: var(--navy);
+            color: var(--ink);
             margin-bottom: 12px;
             font-size: 0.95rem;
         }
@@ -339,7 +344,7 @@
         .metric .value {
             font-size: 1.6rem;
             font-weight: 700;
-            color: var(--navy);
+            color: var(--ink);
         }
 
         .metric .value.positive { color: var(--green); }
@@ -389,7 +394,7 @@
             display: inline-block;
             margin-top: 6px;
             font-size: 0.8rem;
-            color: var(--navy);
+            color: var(--ink);
             text-decoration: underline;
             cursor: pointer;
         }
@@ -421,19 +426,19 @@
             top: -12px;
             right: 16px;
             background: var(--gold);
-            color: var(--white);
+            color: var(--on-dark);
             padding: 3px 10px;
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 700;
         }
 
-        .pricing-col h4 { color: var(--navy); margin-bottom: 8px; }
+        .pricing-col h4 { color: var(--ink); margin-bottom: 8px; }
 
         .pricing-col .price {
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--navy);
+            color: var(--ink);
             margin-bottom: 10px;
         }
 
@@ -467,8 +472,8 @@
 
         /* IK SPECIFIC */
         .ik-result-highlight {
-            background: var(--navy);
-            color: var(--white);
+            background: var(--brand);
+            color: var(--on-dark);
             padding: 16px;
             border-radius: 8px;
             text-align: center;
@@ -495,7 +500,7 @@
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            color: var(--navy);
+            color: var(--ink);
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.95rem;
@@ -531,11 +536,11 @@
 
         .guide-card:hover{border-color:var(--gold);box-shadow:var(--shadow-md);transform:translateY(-2px);}
 
-        .guide-card h3{font-size:1.05rem;color:var(--navy);margin:0 0 4px;}
+        .guide-card h3{font-size:1.05rem;color:var(--ink);margin:0 0 4px;}
 
         .guide-card p{font-size:.88rem;color:var(--gray-500);margin:0;line-height:1.45;}
 
-        .nav-guides{color:var(--white);text-decoration:none;font-size:0.9rem;font-weight:600;padding:8px 16px;border:1px solid rgba(255,255,255,.3);border-radius:6px;transition: transform .2s var(--ease-out), opacity .2s, background-color .2s, color .2s, border-color .2s, box-shadow .2s;}
+        .nav-guides{color:var(--on-dark);text-decoration:none;font-size:0.9rem;font-weight:600;padding:8px 16px;border:1px solid rgba(255,255,255,.3);border-radius:6px;transition: transform .2s var(--ease-out), opacity .2s, background-color .2s, color .2s, border-color .2s, box-shadow .2s;}
 
         .nav-guides:hover{background:rgba(255,255,255,.1);}
 
@@ -910,21 +915,21 @@
     <!-- FOOTER -->
     <div class="footer">
         <div style="margin-bottom:10px;font-size:.85rem;">
-            <a href="commission-uber-bolt.html" style="color:var(--navy);margin:0 8px;">Commissions Uber/Bolt</a>
-            <a href="rentabilite-par-ville.html" style="color:var(--navy);margin:0 8px;">Rentabilité par ville</a>
-            <a href="location-vs-achat.html" style="color:var(--navy);margin:0 8px;">Coût de location</a>
-            <a href="seuil-rentabilite.html" style="color:var(--navy);margin:0 8px;">Seuil de rentabilité</a>
-            <a href="guide-charges.html" style="color:var(--navy);margin:0 8px;">Charges cachées</a>
-            <a href="location-vs-achat.html" style="color:var(--navy);margin:0 8px;">Location vs achat</a>
-            <a href="statuts-vtc.html" style="color:var(--navy);margin:0 8px;">Statuts fiscaux</a>
-            <a href="creation-societe-vtc.html" style="color:var(--navy);margin:0 8px;">Création de société</a>
-            <a href="applications-vtc.html" style="color:var(--navy);margin:0 8px;">Applications VTC</a>
-            <a href="declaration-urssaf-vtc.html" style="color:var(--navy);margin:0 8px;">Déclaration URSSAF</a>
-            <a href="facturation-vtc.html" style="color:var(--navy);margin:0 8px;">Facturation VTC</a>
-            <a href="tva-vtc.html" style="color:var(--navy);margin:0 8px;">TVA VTC</a>
+            <a href="commission-uber-bolt.html" style="color:var(--ink);margin:0 8px;">Commissions Uber/Bolt</a>
+            <a href="rentabilite-par-ville.html" style="color:var(--ink);margin:0 8px;">Rentabilité par ville</a>
+            <a href="location-vs-achat.html" style="color:var(--ink);margin:0 8px;">Coût de location</a>
+            <a href="seuil-rentabilite.html" style="color:var(--ink);margin:0 8px;">Seuil de rentabilité</a>
+            <a href="guide-charges.html" style="color:var(--ink);margin:0 8px;">Charges cachées</a>
+            <a href="location-vs-achat.html" style="color:var(--ink);margin:0 8px;">Location vs achat</a>
+            <a href="statuts-vtc.html" style="color:var(--ink);margin:0 8px;">Statuts fiscaux</a>
+            <a href="creation-societe-vtc.html" style="color:var(--ink);margin:0 8px;">Création de société</a>
+            <a href="applications-vtc.html" style="color:var(--ink);margin:0 8px;">Applications VTC</a>
+            <a href="declaration-urssaf-vtc.html" style="color:var(--ink);margin:0 8px;">Déclaration URSSAF</a>
+            <a href="facturation-vtc.html" style="color:var(--ink);margin:0 8px;">Facturation VTC</a>
+            <a href="tva-vtc.html" style="color:var(--ink);margin:0 8px;">TVA VTC</a>
         </div>
         IZEO CAB — 2 Rue Antoine Coysevox, 69001 Lyon &bull; SIREN 837 936 509 &bull; 
-        <a href="https://izeocab.com" style="color:var(--navy);">izeocab.com</a>
+        <a href="https://izeocab.com" style="color:var(--ink);">izeocab.com</a>
     </div>
 </div>
 
@@ -1017,6 +1022,10 @@ function updateLivePreview() {
     document.getElementById('liveRevenue').textContent = Math.round(revenuNet).toLocaleString('fr-FR') + ' €';
     document.getElementById('liveHourly').textContent = Math.round(tauxHoraireNet) + ' €/h';
     document.getElementById('liveSeuil').textContent = seuilCourses + ' courses';
+    const flashEl = document.getElementById('liveRevenue');
+    flashEl.classList.remove('live-result-flash');
+    void flashEl.offsetWidth;
+    flashEl.classList.add('live-result-flash');
 }
 
 // Debounce on inputs
@@ -1024,8 +1033,30 @@ document.querySelectorAll('#page1 input, #page1 select').forEach(el => {
     el.addEventListener('input', () => {
         clearTimeout(previewTimer);
         previewTimer = setTimeout(updateLivePreview, 300);
+        saveInputs();
     });
 });
+
+// Persistance locale des saisies (localStorage)
+function saveInputs() {
+    const data = {};
+    document.querySelectorAll('#page1 input, #page1 select').forEach(el => {
+        if (el.id) data[el.id] = el.value;
+    });
+    try { localStorage.setItem('vtcCalc', JSON.stringify(data)); } catch (e) {}
+}
+function loadInputs() {
+    try {
+        const data = JSON.parse(localStorage.getItem('vtcCalc') || '{}');
+        Object.keys(data).forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = data[id];
+        });
+    } catch (e) {}
+}
+// Restaure les saisies au chargement
+loadInputs();
+updateLivePreview();
 
 // ============ PAGE 1 : CALCUL RENTABILITÉ ============
 function calculer() {
