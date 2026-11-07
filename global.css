@@ -202,6 +202,15 @@ tr:nth-child(even) { background: var(--gray-50); }
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .table-wrap table { min-width: 640px; }
 
+/* montants / résultats dynamiques en mono (calculateur) */
+.metric .value,
+.amount,
+.ik-result-highlight .big,
+#liveRevenue, #liveHourly, #liveSeuil {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+}
+
 /* ---------- FOOTER ---------- */
 .footer {
     text-align: center;
