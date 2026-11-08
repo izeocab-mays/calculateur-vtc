@@ -103,7 +103,7 @@ body {
 .header a.logo:hover { background: transparent; }
 
 /* ---------- CONTENEUR ---------- */
-.container { max-width: 860px; margin: 0 auto; padding: 32px 20px 64px; }
+.container { max-width: 860px; margin: 0 auto; padding: 48px 20px 96px; }
 
 /* ---------- TYPOGRAPHIE ---------- */
 h1 {
@@ -116,7 +116,7 @@ h1 {
 h2 {
     font-size: 1.3rem;
     color: var(--ink);
-    margin: 28px 0 10px;
+    margin: 48px 0 16px;
     letter-spacing: -0.01em;
 }
 h2 .h2-icon {
@@ -129,7 +129,7 @@ h2 .h2-icon {
 h3 {
     font-size: 1.05rem;
     color: var(--ink);
-    margin: 18px 0 8px;
+    margin: 28px 0 12px;
 }
 .date { color: var(--gray-500); font-size: .85rem; margin-bottom: 24px; }
 
@@ -145,8 +145,8 @@ h3 {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 24px;
-    margin-bottom: 18px;
+    padding: 28px;
+    margin-bottom: 24px;
 }
 ul { padding-left: 20px; margin: 8px 0; }
 li { margin: 4px 0; }
